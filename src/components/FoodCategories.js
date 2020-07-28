@@ -3,22 +3,33 @@ import axios from "axios";
 
 function FoodCategories() {
   const [foodCategories, setFoodCategories] = useState([]);
+  const [showMoreDetails, setshowMoreDetails] = useState(false);
 
   useEffect(() => {
     async function getData() {
       const response = await axios.get(
         "https://www.themealdb.com/api/json/v1/1/categories.php"
       );
-      console.log(response.data.categories);
       setFoodCategories(response.data.categories);
     }
     getData();
   }, []);
 
+  const showMore = (e) => {
+    e.preventDefault();
+    let data = e.target;
+    console.log(data);
+    setshowMoreDetails(!showMoreDetails);
+  };
+
   return (
-    <div>
-      {foodCategories.map((item, key) => (
-        <div className="card" style={{ width: "18rem" }}>
+    <div className="container">
+      {foodCategories.map((item, i) => (
+        <div
+          className="card"
+          style={{ width: "18rem", display: "inline-block" }}
+          key={i}
+        >
           <img
             className="card-img-top"
             src={item.strCategoryThumb}
@@ -26,7 +37,15 @@ function FoodCategories() {
           />
           <div className="card-body">
             <h5 className="card-title">{item.strCategory}</h5>
-            <p className="card-text">{item.strCategoryDescription}</p>
+            <p className="card-text">
+              {!showMoreDetails
+                ? item.strCategoryDescription.substring(0, 100)
+                : item.strCategoryDescription}{" "}
+              <a href="#" value={i} onClick={showMore}>
+                show more
+              </a>
+            </p>
+
             <a href="#" className="btn btn-primary">
               Go somewhere
             </a>

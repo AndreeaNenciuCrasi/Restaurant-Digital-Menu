@@ -6,9 +6,9 @@ function MenuBar() {
     <Navbar bg="light" variant="light">
       <Navbar.Brand href="#home">Restaurant Yellow</Navbar.Brand>
       <Nav className="mr-auto">
-        <Nav.Link href="#home">Home</Nav.Link>
-        <Nav.Link href="#features">Menu22</Nav.Link>
-        <Nav.Link href="#pricing">222</Nav.Link>
+        <Nav.Link href="/">Home</Nav.Link>
+        <Nav.Link href="/">Menu</Nav.Link>
+        <Nav.Link href="/surprise-meal">Surprise Meal</Nav.Link>
       </Nav>
     </Navbar>
   );
