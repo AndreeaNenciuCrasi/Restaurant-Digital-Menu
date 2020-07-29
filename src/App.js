@@ -7,6 +7,7 @@ import { Switch, Route, Redirect } from "react-router-dom";
 import SurpriseMeal from "./components/SurpriseMeal";
 import MealListByCategory from "./components/MealListByCategory";
 import SearchResults from "./components/SearchResults";
+import FoodDetails from "./components/FoodDetails";
 
 function App() {
   return (
@@ -22,6 +23,10 @@ function App() {
           <Route
             path="/search/:name"
             render={(e) => <SearchResults name={e.match.params.name} />}
+          />
+          <Route
+            path="/food-details/:id"
+            render={(e) => <FoodDetails id={e.match.params.id} />}
           />
           <Route path="/surprise-meal" exact component={SurpriseMeal} />
           <Redirect to="/" />

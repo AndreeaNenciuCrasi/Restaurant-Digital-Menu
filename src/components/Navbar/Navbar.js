@@ -25,7 +25,7 @@ function MenuBar() {
       <Form inline onSubmit={handleSubmit}>
         <FormControl
           type="text"
-          placeholder="Search"
+          placeholder="Search by ingredient"
           className="mr-sm-2"
           value={dataInput}
           onChange={handleChange}
@@ -33,7 +33,7 @@ function MenuBar() {
 
         <Link to={`/search/${dataInput}`}>
           <Button type="submit" variant="outline-success">
-            Search by ingredient
+            Search
           </Button>
         </Link>
       </Form>
