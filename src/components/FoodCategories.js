@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 function FoodCategories() {
   const [foodCategories, setFoodCategories] = useState([]);
@@ -46,9 +47,12 @@ function FoodCategories() {
               </a>
             </p>
 
-            <a href="#" className="btn btn-primary">
-              Go somewhere
-            </a>
+            <Link
+              className="btn btn-primary"
+              to={`/categories/${item.strCategory}`}
+            >
+              Go to food
+            </Link>
           </div>
         </div>
       ))}
