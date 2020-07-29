@@ -8,30 +8,38 @@ import SurpriseMeal from "./components/SurpriseMeal";
 import MealListByCategory from "./components/MealListByCategory";
 import SearchResults from "./components/SearchResults";
 import FoodDetails from "./components/FoodDetails";
+import PageContent from "./PageContent";
+import { ThemeProvider } from "./contexts/ThemeContext";
 
 function App() {
   return (
     <div className="App">
-      <MenuBar />
-      <div>
-        <Switch>
-          <Route path="/" exact component={FoodCategories} />
-          <Route
-            path="/categories/:name"
-            render={(e) => <MealListByCategory name={e.match.params.name} />}
-          />
-          <Route
-            path="/search/:name"
-            render={(e) => <SearchResults name={e.match.params.name} />}
-          />
-          <Route
-            path="/food-details/:id"
-            render={(e) => <FoodDetails id={e.match.params.id} />}
-          />
-          <Route path="/surprise-meal" exact component={SurpriseMeal} />
-          <Redirect to="/" />
-        </Switch>
-      </div>
+      <ThemeProvider>
+        <PageContent>
+          <MenuBar />
+          <div>
+            <Switch>
+              <Route path="/" exact component={FoodCategories} />
+              <Route
+                path="/categories/:name"
+                render={(e) => (
+                  <MealListByCategory name={e.match.params.name} />
+                )}
+              />
+              <Route
+                path="/search/:name"
+                render={(e) => <SearchResults name={e.match.params.name} />}
+              />
+              <Route
+                path="/food-details/:id"
+                render={(e) => <FoodDetails id={e.match.params.id} />}
+              />
+              <Route path="/surprise-meal" exact component={SurpriseMeal} />
+              <Redirect to="/" />
+            </Switch>
+          </div>
+        </PageContent>
+      </ThemeProvider>
     </div>
   );
 }

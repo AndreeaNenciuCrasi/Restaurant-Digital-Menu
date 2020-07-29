@@ -1,7 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Navbar, Nav, Form, Button, FormControl } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import { ThemeContext } from "../../contexts/ThemeContext";
+import "./Navbar.css";
+
 function MenuBar() {
+  const { isDarkMode, toggleTheme } = useContext(ThemeContext);
   const [dataInput, setDataInput] = useState("");
 
   const handleChange = (e) => {
@@ -13,9 +17,11 @@ function MenuBar() {
     setDataInput("");
   };
 
-  console.log(dataInput);
   return (
-    <Navbar bg="light" variant="light">
+    <Navbar
+      bg={isDarkMode ? "dark" : "light"}
+      variant={isDarkMode ? "dark" : "light"}
+    >
       <Navbar.Brand href="#home">Restaurant Yellow</Navbar.Brand>
       <Nav className="mr-auto">
         <Nav.Link href="/">Home</Nav.Link>
@@ -33,10 +39,14 @@ function MenuBar() {
 
         <Link to={`/search/${dataInput}`}>
           <Button type="submit" variant="outline-success">
-            Search
+            🔍
           </Button>
         </Link>
       </Form>
+
+      <Button type="submit" variant="outline-success" onClick={toggleTheme}>
+        🎨
+      </Button>
     </Navbar>
   );
 }

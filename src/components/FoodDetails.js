@@ -51,7 +51,7 @@ function FoodDetails({ id }) {
             trigger={
               <a href="#" className="card-link">
                 {" "}
-                Recipe
+                Recipe 🥣
               </a>
             }
             position="right center"
