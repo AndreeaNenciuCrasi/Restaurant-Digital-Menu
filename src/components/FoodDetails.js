@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Popup from "reactjs-popup";
+import "./FoodDetails.css";
 
 function FoodDetails({ id }) {
   const [foodDetails, setFoodDetails] = useState([]);
@@ -16,13 +17,15 @@ function FoodDetails({ id }) {
   }, [id]);
 
   return (
-    <div className="container">
-      <div className="card" style={{ width: "18rem" }}>
-        <img
-          className="card-img-top"
-          src={foodDetails.strMealThumb}
-          alt="Card image cap"
-        />
+    <div className="container" style={{ width: "43rem" }}>
+      <div className="card">
+        <div style={{ width: "40rem", margin: "0 auto" }}>
+          <img
+            className="card-img-top"
+            src={foodDetails.strMealThumb}
+            alt="Card image cap"
+          />
+        </div>
         <div className="card-body">
           <h5 className="card-title">{foodDetails.strMeal}</h5>
           <p className="card-text">

@@ -32,7 +32,7 @@ function FoodCategories() {
 
   return (
     <div className="container FoodCategoriesContainer">
-      <h1 className={isDarkMode ? "whiteText" : "blackText"}>
+      <h1 className={isDarkMode ? "blackText" : "whiteText"}>
         Food Categories
       </h1>
       {foodCategories.map((item, i) => (

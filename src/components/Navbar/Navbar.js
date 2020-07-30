@@ -20,8 +20,8 @@ function MenuBar() {
   return (
     <Navbar
       className="color-nav"
-      bg={isDarkMode ? "dark" : "light"}
-      variant={isDarkMode ? "dark" : "light"}
+      bg={isDarkMode ? "light" : "dark"}
+      variant={isDarkMode ? "light" : "dark"}
     >
       <Navbar.Brand href="#home">Restaurant Yellow</Navbar.Brand>
       <Nav className="mr-auto">

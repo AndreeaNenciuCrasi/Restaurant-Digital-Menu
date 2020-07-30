@@ -6,7 +6,7 @@ import Background2 from "./images/img2.jpg";
 export default function PageContent(props) {
   const { isDarkMode } = useContext(ThemeContext);
   const styles = {
-    backgroundImage: isDarkMode ? `url(${Background2}` : `url(${Background1})`,
+    backgroundImage: isDarkMode ? `url(${Background1})` : `url(${Background2}`,
     backgroundPosition: "left",
     backgroundSize: "cover",
     backgroundRepeat: "no-repeat",

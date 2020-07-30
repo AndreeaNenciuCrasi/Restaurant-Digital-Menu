@@ -16,13 +16,15 @@ function SurpriseMeal() {
 
   console.log(surpriseMeal);
   return (
-    <div className="container">
-      <div className="card" style={{ width: "18rem" }}>
-        <img
-          className="card-img-top"
-          src={surpriseMeal.strMealThumb}
-          alt="Card image cap"
-        />
+    <div className="container" style={{ width: "43rem" }}>
+      <div className="card">
+        <div style={{ width: "40rem", margin: "0 auto" }}>
+          <img
+            className="card-img-top"
+            src={surpriseMeal.strMealThumb}
+            alt="Card image cap"
+          />
+        </div>
         <div className="card-body">
           <h5 className="card-title">{surpriseMeal.strMeal}</h5>
           <p className="card-text">

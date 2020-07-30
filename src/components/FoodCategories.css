@@ -20,11 +20,6 @@
   padding-right: 5px;
 }
 
-.FoodCategoriesCardText {
-  max-height: 300px;
-  overflow: auto;
-}
-
 .blackText {
   color: black;
   font-size: 75px;

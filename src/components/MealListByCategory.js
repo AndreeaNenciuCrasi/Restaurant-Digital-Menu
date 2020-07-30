@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import "./FoodCategories.css";
 
 function MealListByCategory({ name }) {
   const [foodListCategories, setFoodListCategories] = useState([]);
@@ -17,14 +18,14 @@ function MealListByCategory({ name }) {
   }, [name]);
 
   return (
-    <div className="container">
+    <div className="container FoodCategoriesContainer">
       {foodListCategories.map((item) => (
         <div
-          className="card"
+          className="card FoodCategoriesCard"
           style={{ width: "18rem", display: "inline-block" }}
         >
           <img
-            className="card-img-top"
+            className="card-img-top cardImg"
             src={item.strMealThumb}
             alt="Card image cap"
           />
