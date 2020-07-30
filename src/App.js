@@ -1,6 +1,7 @@
 import React from "react";
 
 import "./App.css";
+import Footer from "./components/Footer";
 import MenuBar from "./components/Navbar/Navbar";
 import FoodCategories from "./components/FoodCategories";
 import { Switch, Route, Redirect } from "react-router-dom";
@@ -38,6 +39,7 @@ function App() {
               <Redirect to="/" />
             </Switch>
           </div>
+          <Footer />
         </PageContent>
       </ThemeProvider>
     </div>
