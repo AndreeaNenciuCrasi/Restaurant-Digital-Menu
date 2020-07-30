@@ -16,9 +16,9 @@ function SurpriseMeal() {
 
   console.log(surpriseMeal);
   return (
-    <div className="container" style={{ width: "43rem" }}>
+    <div className="container" style={{ width: "38rem", marginTop: "50px" }}>
       <div className="card">
-        <div style={{ width: "40rem", margin: "0 auto" }}>
+        <div style={{ width: "35rem", margin: "0 auto", paddingTop: "10px" }}>
           <img
             className="card-img-top"
             src={surpriseMeal.strMealThumb}
