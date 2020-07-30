@@ -31,8 +31,8 @@ function FoodCategories() {
     });
   };
 
-  const textDisplay = () => {
-    return MoreDetails ? "show less" : "show more";
+  const textDisplay = (show) => {
+    return show ? "show less" : "show more";
   };
 
   return (
@@ -57,7 +57,7 @@ function FoodCategories() {
                 ? item.strCategoryDescription
                 : item.strCategoryDescription.substring(0, 100)}{" "}
               <a href="#" name={item.idCategory} onClick={showMore}>
-                {textDisplay()}
+                {textDisplay(item.showMoreDetails)}
               </a>
             </p>
 
