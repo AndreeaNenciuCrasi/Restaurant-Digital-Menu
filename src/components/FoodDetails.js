@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import Popup from "reactjs-popup";
 import "./FoodDetails.css";
 import { Modal, Button } from "react-bootstrap";
 
@@ -22,9 +21,9 @@ function FoodDetails({ id }) {
   }, [id]);
 
   return (
-    <div className="container" style={{ width: "38rem", marginTop: "50px" }}>
+    <div className="container" style={{ width: "32rem", marginTop: "50px" }}>
       <div className="card">
-        <div style={{ width: "35rem", margin: "0 auto", paddingTop: "10px" }}>
+        <div style={{ width: "30rem", margin: "0 auto", paddingTop: "10px" }}>
           <img
             className="card-img-top"
             src={foodDetails.strMealThumb}
@@ -34,17 +33,17 @@ function FoodDetails({ id }) {
         <div className="card-body">
           <h5 className="card-title">{foodDetails.strMeal}</h5>
           <p className="card-text">
-            Main ingredientes: {foodDetails.strIngredient1},{" "}
-            {foodDetails.strIngredient2}, {foodDetails.strIngredient3}
+            Main ingredientes: <i>{foodDetails.strIngredient1},{" "} 
+            {foodDetails.strIngredient2}, {foodDetails.strIngredient3} </i>
           </p>
         </div>
         <ul className="list-group list-group-flush">
-          <li className="list-group-item">Area: {foodDetails.strArea}</li>
+          <li className="list-group-item">Area: <i>{foodDetails.strArea}</i></li>
           <li className="list-group-item">
-            Category: {foodDetails.strCategory}
+            Category: <i>{foodDetails.strCategory}</i>
           </li>
           {foodDetails.strTags && (
-            <li className="list-group-item">Tags: {foodDetails.strTags}</li>
+            <li className="list-group-item">Tags: <i>{foodDetails.strTags}</i></li>
           )}
         </ul>
         <div className="card-body">
@@ -54,7 +53,9 @@ function FoodDetails({ id }) {
             </a>
           )}
 
-          <>
+          
+        </div>
+        <>
             <Button variant="link" onClick={handleShow}>
               Recipe
             </Button>
@@ -70,7 +71,6 @@ function FoodDetails({ id }) {
               </Modal.Footer>
             </Modal>
           </>
-        </div>
       </div>
     </div>
   );
