@@ -2,9 +2,14 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Popup from "reactjs-popup";
 import "./FoodDetails.css";
+import { Modal, Button } from "react-bootstrap";
 
 function FoodDetails({ id }) {
   const [foodDetails, setFoodDetails] = useState([]);
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
 
   useEffect(() => {
     async function getData() {
@@ -49,18 +54,22 @@ function FoodDetails({ id }) {
             </a>
           )}
 
-          <Popup
-            className="card-link"
-            trigger={
-              <a href="#" className="card-link">
-                {" "}
-                Recipe 🥣
-              </a>
-            }
-            position="right center"
-          >
-            <div>{foodDetails.strInstructions}</div>
-          </Popup>
+          <>
+            <Button variant="link" onClick={handleShow}>
+              Recipe
+            </Button>
+            <Modal show={show} onHide={handleClose}>
+              <Modal.Header closeButton>
+                <Modal.Title>Recipe</Modal.Title>
+              </Modal.Header>
+              <Modal.Body>{foodDetails.strInstructions}</Modal.Body>
+              <Modal.Footer>
+                <Button variant="secondary" onClick={handleClose}>
+                  Close
+                </Button>
+              </Modal.Footer>
+            </Modal>
+          </>
         </div>
       </div>
     </div>
