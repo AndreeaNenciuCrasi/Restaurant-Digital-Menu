@@ -8,7 +8,7 @@ function Footer() {
     >
       <div class="footer-copyright text-center text-white py-3">
         © 2020 Copyright:
-        <a href="https://mdbootstrap.com/"> Yellow Team</a>
+        <a href="https://mdbootstrap.com/"> Yellow Team Restaurant</a>
       </div>
     </footer>
   );

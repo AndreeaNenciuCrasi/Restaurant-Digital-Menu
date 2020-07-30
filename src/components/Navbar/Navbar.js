@@ -23,10 +23,10 @@ function MenuBar() {
       bg={isDarkMode ? "light" : "dark"}
       variant={isDarkMode ? "light" : "dark"}
     >
-      <Navbar.Brand href="#home">Restaurant Yellow</Navbar.Brand>
+      <Navbar.Brand href="#home">Yellow Restaurant</Navbar.Brand>
       <Nav className="mr-auto">
         <Nav.Link href="/">Home</Nav.Link>
-        <Nav.Link href="/">Menu</Nav.Link>
+        <Nav.Link href="/categories">Menu categories</Nav.Link>
         <Nav.Link href="/surprise-meal">Surprise Meal</Nav.Link>
       </Nav>
       <Form inline onSubmit={handleSubmit}>
