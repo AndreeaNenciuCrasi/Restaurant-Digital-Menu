@@ -19,6 +19,7 @@ function MenuBar() {
 
   return (
     <Navbar
+      className="color-nav"
       bg={isDarkMode ? "dark" : "light"}
       variant={isDarkMode ? "dark" : "light"}
     >

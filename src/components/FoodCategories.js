@@ -1,8 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import "./FoodCategories.css";
+import { ThemeContext } from "../contexts/ThemeContext";
 
 function FoodCategories() {
+  const { isDarkMode, toggleTheme } = useContext(ThemeContext);
   const [foodCategories, setFoodCategories] = useState([]);
   const [showMoreDetails, setshowMoreDetails] = useState(false);
 
@@ -23,27 +26,33 @@ function FoodCategories() {
     setshowMoreDetails(!showMoreDetails);
   };
 
+  const textDisplay = () => {
+    return showMoreDetails ? "show less" : "show more";
+  };
+
   return (
-    <div className="container">
+    <div className="container FoodCategoriesContainer">
+      <h1 className={isDarkMode ? "whiteText" : "blackText"}>
+        Food Categories
+      </h1>
       {foodCategories.map((item, i) => (
-        <div
-          className="card"
-          style={{ width: "18rem", display: "inline-block" }}
-          key={i}
-        >
-          <img
-            className="card-img-top"
-            src={item.strCategoryThumb}
-            alt={item.strCategory}
-          />
+        <div className="card FoodCategoriesCard" key={i}>
+          <div className="cardImg">
+            <img
+              className="card-img-top"
+              src={item.strCategoryThumb}
+              alt={item.strCategory}
+            />
+          </div>
           <div className="card-body">
             <h5 className="card-title">{item.strCategory}</h5>
-            <p className="card-text">
+
+            <p className="card-text FoodCategoriesCardText">
               {!showMoreDetails
                 ? item.strCategoryDescription.substring(0, 100)
                 : item.strCategoryDescription}{" "}
               <a href="#" value={i} onClick={showMore}>
-                show more
+                {textDisplay()}
               </a>
             </p>
 
