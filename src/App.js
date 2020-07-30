@@ -11,6 +11,7 @@ import SearchResults from "./components/SearchResults";
 import FoodDetails from "./components/FoodDetails";
 import PageContent from "./PageContent";
 import { ThemeProvider } from "./contexts/ThemeContext";
+import AllMeals from "./components/AllMeals";
 
 function App() {
   return (
@@ -20,7 +21,8 @@ function App() {
           <MenuBar />
           <div>
             <Switch>
-              <Route path="/" exact component={FoodCategories} />
+              <Route path="/categories" exact component={FoodCategories} />
+              <Route path="/" exact component={AllMeals} />
               <Route
                 path="/categories/:name"
                 render={(e) => (
