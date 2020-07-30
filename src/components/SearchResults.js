@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import "./FoodCategories.css";
 
 function SearchResults({ name }) {
   const [foodListSearch, setFoodListSearch] = useState([]);
@@ -15,18 +16,16 @@ function SearchResults({ name }) {
     getData();
   }, [name]);
 
-  console.log(foodListSearch);
-
   return (
-    <div>
+    <div className="container FoodCategoriesContainer">
       {foodListSearch !== null ? (
         foodListSearch.map((item) => (
           <div
-            className="card"
+            className="card FoodCategoriesCard"
             style={{ width: "18rem", display: "inline-block" }}
           >
             <img
-              className="card-img-top"
+              className="card-img-top cardImg"
               src={item.strMealThumb}
               alt="Card image cap"
             />

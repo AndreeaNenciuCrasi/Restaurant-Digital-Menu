@@ -7,7 +7,7 @@ import { ThemeContext } from "../contexts/ThemeContext";
 function FoodCategories() {
   const { isDarkMode, toggleTheme } = useContext(ThemeContext);
   const [foodCategories, setFoodCategories] = useState([]);
-  const [showMoreDetails, setshowMoreDetails] = useState(false);
+  const [MoreDetails, setMoreDetails] = useState(false);
 
   useEffect(() => {
     async function getData() {
@@ -21,13 +21,18 @@ function FoodCategories() {
 
   const showMore = (e) => {
     e.preventDefault();
-    let data = e.target;
-    console.log(data);
-    setshowMoreDetails(!showMoreDetails);
+    let id = e.target.name;
+
+    foodCategories.map((item) => {
+      if (item.idCategory === id) {
+        item.showMoreDetails = !item.showMoreDetails;
+      }
+      setMoreDetails(!MoreDetails);
+    });
   };
 
   const textDisplay = () => {
-    return showMoreDetails ? "show less" : "show more";
+    return MoreDetails ? "show less" : "show more";
   };
 
   return (
@@ -48,10 +53,10 @@ function FoodCategories() {
             <h5 className="card-title">{item.strCategory}</h5>
 
             <p className="card-text FoodCategoriesCardText">
-              {!showMoreDetails
-                ? item.strCategoryDescription.substring(0, 100)
-                : item.strCategoryDescription}{" "}
-              <a href="#" value={i} onClick={showMore}>
+              {item.showMoreDetails
+                ? item.strCategoryDescription
+                : item.strCategoryDescription.substring(0, 100)}{" "}
+              <a href="#" name={item.idCategory} onClick={showMore}>
                 {textDisplay()}
               </a>
             </p>
