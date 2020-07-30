@@ -17,7 +17,7 @@ function MealListByCategory({ name }) {
   }, [name]);
 
   return (
-    <div>
+    <div className="container">
       {foodListCategories.map((item) => (
         <div
           className="card"

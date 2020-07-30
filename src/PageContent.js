@@ -8,8 +8,9 @@ export default function PageContent(props) {
   const styles = {
     backgroundImage: isDarkMode ? `url(${Background2}` : `url(${Background1})`,
     backgroundPosition: "left",
-    backgroundSize: "contain",
-    backgroundRepeat: "repeat-y",
+    backgroundSize: "cover",
+    backgroundRepeat: "no-repeat",
+    backgroundAttachment: "fixed",
   };
   return <div style={styles}>{props.children}</div>;
 }
