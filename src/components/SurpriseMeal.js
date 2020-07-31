@@ -18,7 +18,7 @@ function SurpriseMeal() {
   return (
     <div className="container" style={{ width: "38rem", marginTop: "50px" }}>
       <div className="card">
-        <div style={{ width: "35rem", margin: "0 auto", paddingTop: "10px" }}>
+        <div style={{ width: "98%", margin: "0 auto", paddingTop: "10px" }}>
           <img
             className="card-img-top"
             src={surpriseMeal.strMealThumb}
