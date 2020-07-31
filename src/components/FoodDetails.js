@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import "./FoodDetails.css";
 import { Modal, Button } from "react-bootstrap";
 
 function FoodDetails({ id }) {
@@ -33,17 +32,24 @@ function FoodDetails({ id }) {
         <div className="card-body">
           <h5 className="card-title">{foodDetails.strMeal}</h5>
           <p className="card-text">
-            Main ingredientes: <i>{foodDetails.strIngredient1},{" "} 
-            {foodDetails.strIngredient2}, {foodDetails.strIngredient3} </i>
+            Main ingredientes:{" "}
+            <i>
+              {foodDetails.strIngredient1}, {foodDetails.strIngredient2},{" "}
+              {foodDetails.strIngredient3}{" "}
+            </i>
           </p>
         </div>
         <ul className="list-group list-group-flush">
-          <li className="list-group-item">Area: <i>{foodDetails.strArea}</i></li>
+          <li className="list-group-item">
+            Area: <i>{foodDetails.strArea}</i>
+          </li>
           <li className="list-group-item">
             Category: <i>{foodDetails.strCategory}</i>
           </li>
           {foodDetails.strTags && (
-            <li className="list-group-item">Tags: <i>{foodDetails.strTags}</i></li>
+            <li className="list-group-item">
+              Tags: <i>{foodDetails.strTags}</i>
+            </li>
           )}
         </ul>
         <div className="card-body">
@@ -52,25 +58,23 @@ function FoodDetails({ id }) {
               Youtube
             </a>
           )}
-
-          
         </div>
         <>
-            <Button variant="link" onClick={handleShow}>
-              Recipe
-            </Button>
-            <Modal show={show} onHide={handleClose}>
-              <Modal.Header closeButton>
-                <Modal.Title>Recipe</Modal.Title>
-              </Modal.Header>
-              <Modal.Body>{foodDetails.strInstructions}</Modal.Body>
-              <Modal.Footer>
-                <Button variant="secondary" onClick={handleClose}>
-                  Close
-                </Button>
-              </Modal.Footer>
-            </Modal>
-          </>
+          <Button variant="link" onClick={handleShow}>
+            Recipe
+          </Button>
+          <Modal show={show} onHide={handleClose}>
+            <Modal.Header closeButton>
+              <Modal.Title>Recipe</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>{foodDetails.strInstructions}</Modal.Body>
+            <Modal.Footer>
+              <Button variant="secondary" onClick={handleClose}>
+                Close
+              </Button>
+            </Modal.Footer>
+          </Modal>
+        </>
       </div>
     </div>
   );
