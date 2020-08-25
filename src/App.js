@@ -12,6 +12,7 @@ import FoodDetails from "./components/FoodDetails";
 import PageContent from "./PageContent";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import AllMeals from "./components/AllMeals";
+import UserSignUp from "./components/UserSignUp";
 
 function App() {
   return (
@@ -38,6 +39,9 @@ function App() {
                 render={(e) => <FoodDetails id={e.match.params.id} />}
               />
               <Route path="/surprise-meal" exact component={SurpriseMeal} />
+
+              <Route path="/sign-up" exact component={UserSignUp} />
+
               <Redirect to="/" />
             </Switch>
           </div>

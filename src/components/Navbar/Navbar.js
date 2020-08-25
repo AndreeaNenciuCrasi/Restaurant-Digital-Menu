@@ -28,6 +28,9 @@ function MenuBar() {
         <Nav.Link href="/">Home</Nav.Link>
         <Nav.Link href="/categories">Food categories</Nav.Link>
         <Nav.Link href="/surprise-meal">Surprise Meal</Nav.Link>
+        <Nav.Link href="/sign-up">Sign-Up</Nav.Link>
+        <Nav.Link href="/login">Login</Nav.Link>
+        <Nav.Link href="/logout">Logout</Nav.Link>
       </Nav>
       <Form inline onSubmit={handleSubmit}>
         <FormControl
