@@ -40,7 +40,7 @@ function App() {
               />
               <Route path="/surprise-meal" exact component={SurpriseMeal} />
 
-              <Route path="/sign-up" exact component={UserSignUp} />
+              <Route path="/signup" exact component={UserSignUp} />
 
               <Redirect to="/" />
             </Switch>

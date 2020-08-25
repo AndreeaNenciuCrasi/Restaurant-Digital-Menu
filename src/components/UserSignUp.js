@@ -1,50 +1,48 @@
-import React from "react";
+import React, { useState, useRef } from "react";
 import { useForm } from "react-hook-form";
+import { Redirect} from "react-router";
 
-export default function App() {
+export default function UserSignUp() {
   const { register, handleSubmit } = useForm();
+  const [toHome, setToHome] = useState(false);
 
-  const onSubmit = (data) =>
+  const onSubmit = (data) => {
+    setToHome(true);
     fetch(" http://localhost:8080/api/v2/user", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
     }).then((res) => res.json());
+  }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <input name="firstName" ref={register} />
-      <input type="submit" />
-    </form>
+    <div>
+      {toHome ? <Redirect to="/" /> : null}
+      <div className="container-register" style={{ width: "38rem", marginTop: "50px", justifyContent : "center", display : "flex" }}>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <h5 style = {{ color : "blue" }}>Register account</h5>
+          <div class="form-group">
+            {/* <label for="First Name">First Name</label> */}
+            <input name="firstName" placeholder="First name" ref={register} type="text" class="form-control" id="first-name"/>
+          </div>
+          <div class="form-group">
+            <input name="lastName" placeholder="Last name" ref={register} type="text" class="form-control" id="last-name"/>
+          </div>
+          <div class="form-group">
+            <input name="userName" placeholder="Username" ref={register} type="text" class="form-control" id="user-name"/>
+          </div>
+          <div class="form-group">
+            <input name="emailAddress" placeholder="Email Address" ref={register} type="text" class="form-control" id="email-address"/>
+          </div>
+          <div class="form-group">
+            <input type="password" name="password" placeholder="Password" ref={register}  class="form-control" id="password"/>
+          </div>
+          <div class="form-group">
+            <input type="password" name="confirmPassword" placeholder="Confirm password" ref={register} class="form-control" id="confirm-password"/>
+          </div>
+          <input type="submit" class="btn btn-primary"/>
+        </form>
+      </div>
+    </div> 
   );
 }
-
-// import React, { useState, useRef } from "react";
-
-// const UserSignUp = () => {
-//   const [user, setUser] = useState("");
-//   const form = useRef(null);
-
-//   const submit = (e) => {
-//     e.preventDefault();
-
-//     const data = new FormData(form.current);
-//     console.log(data);
-//   };
-
-//   return (
-//     <form ref={form} onSubmit={submit}>
-//       <label>First Name:</label>
-
-//       <input
-//         type="text"
-//         value={user}
-//         onChange={(e) => setUser(e.target.value)}
-//         name="firstName"
-//       />
-//       <input type="submit" value="Add user" />
-//     </form>
-//   );
-// };
-
-// export default UserSignUp;
