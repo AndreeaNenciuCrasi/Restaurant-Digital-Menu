@@ -51,6 +51,7 @@ function MenuBar() {
       <Button type="submit" variant="outline-success" onClick={toggleTheme}>
         🎨
       </Button>
+      
     </Navbar>
   );
 }

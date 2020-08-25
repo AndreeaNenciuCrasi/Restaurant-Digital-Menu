@@ -13,6 +13,7 @@ import PageContent from "./PageContent";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import AllMeals from "./components/AllMeals";
 import UserSignUp from "./components/UserSignUp";
+import UserLogin from "./components/UserLogin";
 
 function App() {
   return (
@@ -41,7 +42,7 @@ function App() {
               <Route path="/surprise-meal" exact component={SurpriseMeal} />
 
               <Route path="/signup" exact component={UserSignUp} />
-
+              <Route path="/login" exact component={UserLogin} />
               <Redirect to="/" />
             </Switch>
           </div>
