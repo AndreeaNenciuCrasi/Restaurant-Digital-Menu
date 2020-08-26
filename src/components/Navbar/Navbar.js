@@ -31,6 +31,7 @@ function MenuBar() {
         <Nav.Link href="/signup">SignUp</Nav.Link>
         <Nav.Link href="/login">Login</Nav.Link>
         <Nav.Link href="/logout">Logout</Nav.Link>
+        <Nav.Link href="#">{window.sessionStorage.getItem("User")}</Nav.Link>
       </Nav>
       <Form inline onSubmit={handleSubmit}>
         <FormControl
@@ -51,7 +52,6 @@ function MenuBar() {
       <Button type="submit" variant="outline-success" onClick={toggleTheme}>
         🎨
       </Button>
-      
     </Navbar>
   );
 }
