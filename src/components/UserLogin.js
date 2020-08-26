@@ -44,7 +44,7 @@ export default function UserLogin({ login }) {
           </div>
           <div className="form-group">
             <input
-              type="text"
+              type="email"
               name="emailAddress"
               placeholder="Email Address"
               ref={register}
