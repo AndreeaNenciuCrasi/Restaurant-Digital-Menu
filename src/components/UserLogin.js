@@ -2,7 +2,7 @@ import React, { useState, useRef } from "react";
 import { useForm } from "react-hook-form";
 import { Redirect } from "react-router";
 
-export default function UserLogin({ login }) {
+export default function UserLogin() {
   const { register, handleSubmit } = useForm();
   //   const [userName, setUserName] = useState("");
 
