@@ -28,6 +28,9 @@ function MenuBar() {
         <Nav.Link href="/">Home</Nav.Link>
         <Nav.Link href="/categories">Food categories</Nav.Link>
         <Nav.Link href="/surprise-meal">Surprise Meal</Nav.Link>
+        <Nav.Link href="/signup">SignUp</Nav.Link>
+        <Nav.Link href="/login">Login</Nav.Link>
+        <Nav.Link href="/logout">Logout</Nav.Link>
       </Nav>
       <Form inline onSubmit={handleSubmit}>
         <FormControl
@@ -48,6 +51,7 @@ function MenuBar() {
       <Button type="submit" variant="outline-success" onClick={toggleTheme}>
         🎨
       </Button>
+      
     </Navbar>
   );
 }
