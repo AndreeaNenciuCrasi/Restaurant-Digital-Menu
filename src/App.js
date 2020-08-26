@@ -14,6 +14,7 @@ import { ThemeProvider } from "./contexts/ThemeContext";
 import AllMeals from "./components/AllMeals";
 import UserSignUp from "./components/UserSignUp";
 import UserLogin from "./components/UserLogin";
+import UserLogout from "./components/UserLogout";
 
 function App() {
   return (
@@ -43,6 +44,7 @@ function App() {
 
               <Route path="/signup" exact component={UserSignUp} />
               <Route path="/login" exact component={UserLogin} />
+              <Route path="/logout" exact component={UserLogout} />
               <Redirect to="/" />
             </Switch>
           </div>
