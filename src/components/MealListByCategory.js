@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { FontAwesome } from "react-icons/fa";
+import { FaHeart } from "react-icons/fa";
 import "./FoodCategories.css";
 
 function MealListByCategory({ name }) {
@@ -35,6 +37,11 @@ function MealListByCategory({ name }) {
           />
           <div className="card-body">
             <h5 className="card-title">{item.strMeal.substring(0, 25)}</h5>
+            <button type="button" value="submit">
+              <h5 >
+                <FaHeart style = {{ "color" : "blue" }}/>
+              </h5>
+            </button>{" "}
             <Link to={`/food-details/${item.idMeal}`}>
               <button type="button" value="submit" className="btn btn-info">
                 Info
