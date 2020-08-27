@@ -5,6 +5,7 @@ import "./FoodCategories.css";
 
 function MealListByCategory({ name }) {
   const [foodListCategories, setFoodListCategories] = useState([]);
+  const [mealName, setMealName] = useState("");
 
   useEffect(() => {
     async function getData() {
@@ -12,15 +13,18 @@ function MealListByCategory({ name }) {
         `https://www.themealdb.com/api/json/v1/1/filter.php?c=${name}`
       );
       setFoodListCategories(response.data.meals);
-      console.log(response.data.meals);
+      // console.log(response.data.meals);
     }
     getData();
   }, [name]);
+
+  // console.log(mealName);
 
   return (
     <div className="container FoodCategoriesContainer">
       {foodListCategories.map((item) => (
         <div
+          key={item.strMeal}
           className="card FoodCategoriesCard"
           style={{ width: "18rem", display: "inline-block" }}
         >
@@ -36,7 +40,11 @@ function MealListByCategory({ name }) {
                 Info
               </button>{" "}
             </Link>
-            <a href="#" className="btn btn-primary">
+            <a
+              href="#"
+              onClick={() => handelClick(item.strMeal)}
+              className="btn btn-primary"
+            >
               Order
             </a>
           </div>
@@ -44,6 +52,16 @@ function MealListByCategory({ name }) {
       ))}
     </div>
   );
+}
+
+function handelClick(data) {
+  fetch(`http://localhost:8080/api/v2/cart/${data}`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data),
+  }).then((response) => {
+    console.log(response);
+  });
 }
 
 export default MealListByCategory;
