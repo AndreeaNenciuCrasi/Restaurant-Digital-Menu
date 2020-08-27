@@ -9,18 +9,17 @@ function MealListByCategory({ name }) {
   const [foodListCategories, setFoodListCategories] = useState([]);
   const [mealName, setMealName] = useState("");
 
+  const [favoriteMealName, setFavoriteMealName] = useState("");
+
   useEffect(() => {
     async function getData() {
       const response = await axios.get(
         `https://www.themealdb.com/api/json/v1/1/filter.php?c=${name}`
       );
       setFoodListCategories(response.data.meals);
-      // console.log(response.data.meals);
     }
     getData();
   }, [name]);
-
-  // console.log(mealName);
 
   return (
     <div className="container FoodCategoriesContainer">
@@ -37,7 +36,7 @@ function MealListByCategory({ name }) {
           />
           <div className="card-body">
             <h5 className="card-title">{item.strMeal.substring(0, 25)}</h5>
-            <button type="button" value="submit">
+            <button type="button" onClick={() => faveClick(item.idMeal)}>
               <h5 >
                 <FaHeart style = {{ "color" : "blue" }}/>
               </h5>
@@ -49,7 +48,7 @@ function MealListByCategory({ name }) {
             </Link>
             <a
               href="#"
-              onClick={() => handelClick(item.strMeal)}
+              onClick={() => handleClick(item.strMeal)}
               className="btn btn-primary"
             >
               Order
@@ -61,11 +60,24 @@ function MealListByCategory({ name }) {
   );
 }
 
-function handelClick(data) {
+function handleClick(data) {
+  alert("Meal added to your shopping cart!");
   fetch(`http://localhost:8080/api/v2/cart/${data}`, {
     method: "PUT",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(data),
+  }).then((response) => {
+    console.log(response);
+  });
+}
+
+function faveClick(favoriteMeal) {
+  const username = window.sessionStorage.getItem("User");
+  alert("Meal added to your favorites!");
+  fetch(`http://localhost:8080/api/v2/user/${username}/favorites/${favoriteMeal}`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(favoriteMeal),
   }).then((response) => {
     console.log(response);
   });

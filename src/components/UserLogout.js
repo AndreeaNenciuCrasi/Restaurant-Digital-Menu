@@ -3,7 +3,7 @@ import { Redirect } from "react-router";
 
 export default function UserLogout() {
   sessionStorage.clear();
-  alert("You have been logout!");
+  alert("You have been logged out!");
 
   return (
     <div>

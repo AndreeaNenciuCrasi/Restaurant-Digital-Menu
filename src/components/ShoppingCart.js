@@ -27,12 +27,12 @@ function ShoppingCart() {
     getPrice();
   }, []);
 
-  function calcTotalPrice() {
-    const sum = 0;
-    Object.keys(cartList).map((key, index) => (sum += 5 * cartList[key]));
-    setTotalPrice(sum);
-    return sum;
-  }
+  // function calcTotalPrice() {
+  //   const sum = 0;
+  //   Object.keys(cartList).map((key, index) => (sum += 5 * cartList[key]));
+  //   setTotalPrice(sum);
+  //   return sum;
+  // }
 
   return (
     <div className="container FoodCategoriesContainer">
