@@ -48,6 +48,7 @@ export default function MenuBar() {
             ? `Logged in as ${window.sessionStorage.getItem("User")}`
             : "Not logged in"}
         </Nav.Link>
+        <Nav.Link href="/cart">Cart</Nav.Link>
       </Nav>
       <Form inline onSubmit={handleSubmit}>
         <FormControl
