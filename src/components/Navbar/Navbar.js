@@ -1,12 +1,21 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { Navbar, Nav, Form, Button, FormControl } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { ThemeContext } from "../../contexts/ThemeContext";
 import "./Navbar.css";
 
-function MenuBar() {
+export default function MenuBar() {
   const { isDarkMode, toggleTheme } = useContext(ThemeContext);
   const [dataInput, setDataInput] = useState("");
+  const [userIsLogin, setIsLogin] = useState("");
+
+  useEffect(() => {
+    if (window.sessionStorage.getItem("User")) {
+      setIsLogin(true);
+    } else {
+      setIsLogin(false);
+    }
+  }, [userIsLogin]);
 
   const handleChange = (e) => {
     setDataInput(e.target.value);
@@ -28,11 +37,17 @@ function MenuBar() {
         <Nav.Link href="/">Home</Nav.Link>
         <Nav.Link href="/categories">Food categories</Nav.Link>
         <Nav.Link href="/surprise-meal">Surprise Meal</Nav.Link>
-        <Nav.Link href="/signup">SignUp</Nav.Link>
-        <Nav.Link href="/login">Login</Nav.Link>
-        <Nav.Link href="/user-profile">{ window.sessionStorage.getItem("User") ? `User Profile` : null }</Nav.Link>
-        <Nav.Link href="/logout">{ window.sessionStorage.getItem("User") ? `Logout` : null }</Nav.Link>
-        <Nav.Link href="#">{ window.sessionStorage.getItem("User") ? `Logged in as ${window.sessionStorage.getItem("User")}` : "Not logged in" }</Nav.Link>
+        <Nav.Link href="/signup">{userIsLogin ? null : "SignUp"}</Nav.Link>
+        <Nav.Link href="/login">{userIsLogin ? null : "Login"}</Nav.Link>
+        <Nav.Link href="/user-profile">
+          {userIsLogin ? `User Profile` : null}
+        </Nav.Link>
+        <Nav.Link href="/logout">{userIsLogin ? `Logout` : null}</Nav.Link>
+        <Nav.Link href="#">
+          {userIsLogin
+            ? `Logged in as ${window.sessionStorage.getItem("User")}`
+            : "Not logged in"}
+        </Nav.Link>
       </Nav>
       <Form inline onSubmit={handleSubmit}>
         <FormControl
@@ -56,5 +71,3 @@ function MenuBar() {
     </Navbar>
   );
 }
-
-export default MenuBar;

@@ -1,23 +1,28 @@
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Redirect } from "react-router";
 
 export default function UserLogin() {
   const { register, handleSubmit } = useForm();
-  //   const [userName, setUserName] = useState("");
+  const [userLogin, setUserLogin] = useState(false);
 
   const onSubmit = (data) => {
-    console.log(data.userName);
-    //verifca daca este user asta
-    // daca exista face asta de jos daca nu altceva
-    window.sessionStorage.setItem("User", data.userName);
-
-    creatCart(data.userName);
+    let promiseA = loginUser(data);
+    promiseA.then(function (result) {
+      if (result) {
+        setUserLogin(true);
+        window.sessionStorage.setItem("User", data.userName);
+        creatCart(data.userName);
+        alert("You are login Bon Appetit !");
+      } else {
+        alert("User or password wrong");
+      }
+    });
   };
 
   return (
     <div>
-      {window.sessionStorage.getItem("User") && <Redirect to="/" />}
+      {userLogin && <Redirect to="/" />}
       <div
         className="container-register"
         style={{
@@ -37,19 +42,6 @@ export default function UserLogin() {
               type="text"
               class="form-control"
               id="user-name"
-              //   onChange={(e) => setUserName(e.target.value)}
-              //   value={userName}
-              required="required"
-            />
-          </div>
-          <div className="form-group">
-            <input
-              type="email"
-              name="emailAddress"
-              placeholder="Email Address"
-              ref={register}
-              class="form-control"
-              id="email-address"
               required="required"
             />
           </div>
@@ -71,7 +63,7 @@ export default function UserLogin() {
   );
 }
 
-function creatCart(data) {
+async function creatCart(data) {
   fetch("http://localhost:8080/api/v2/cart", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -79,4 +71,13 @@ function creatCart(data) {
   }).then((response) => {
     console.log(response);
   });
+}
+
+async function loginUser(data) {
+  let responseLogin = await fetch("http://localhost:8080/api/v2/user/login", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data),
+  }).then((response) => response.json());
+  return responseLogin;
 }
