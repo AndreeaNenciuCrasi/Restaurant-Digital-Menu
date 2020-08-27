@@ -17,9 +17,10 @@ export default function UserProfile() {
             `http://localhost:8080/api/v2/user/view/${userName}`
           );
           setUser(response.data);
+          console.log(response.data)
         }
         getData();
-        console.log(user)
+        
       }, []);
 
     return (
@@ -28,8 +29,8 @@ export default function UserProfile() {
                 <div className="col-md-4 border-right">
                     <div className="d-flex flex-column align-items-center text-center p-3 py-5">
                         <img className="rounded-circle mt-5" src="https://i.imgur.com/0eg0aG0.jpg" width="90" />
-                        <span className="font-weight-bold">John Doe</span>
-                        <span className="text-black-50">john_doe12@bbb.com</span>
+                        <span className="font-weight-bold">{user.firstName}  {user.lastName}</span>
+                        <span className="text-black-50">{user.emailAddress}</span>
                         <button className="btn btn-primary profile-button">Favorite meals</button>
                     </div>                   
                 </div>
@@ -46,20 +47,20 @@ export default function UserProfile() {
                             <h6 className="text-right">Profile</h6>
                         </div>
                         <div className="row mt-2">
-                            <div className="col-md-6"><input type="text" className="form-control" placeholder="first name" value="John"/></div>
-                            <div className="col-md-6"><input type="text" className="form-control" value="Doe" placeholder="Doe"/></div>
+                            <div className="col-md-6"><input type="text" className="form-control" value={user.firstName}/></div>
+                            <div className="col-md-6"><input type="text" className="form-control" value={user.lastName}/></div>
                         </div>
                         <div className="row mt-3">
-                            <div className="col-md-6"><input type="text" className="form-control" placeholder="Email" value="john_doe12@bbb.com"/></div>
-                            <div className="col-md-6"><input type="text" className="form-control" value="+19685969668" placeholder="Phone number"/></div>
+                            <div className="col-md-6"><input type="text" className="form-control" value={user.emailAddress}/></div>
+                            <div className="col-md-6"><input type="text" className="form-control" value={user.userName}/></div>
                         </div>
                         <div className="row mt-3">
-                            <div className="col-md-6"><input type="text" className="form-control" placeholder="address" value="D-113, right avenue block, CA,USA"/></div>
-                            <div className="col-md-6"><input type="text" className="form-control" value="USA" placeholder="Country"/></div>
+                            <div className="col-md-6"><input type="text" className="form-control" placeholder="Address"/></div>
+                            <div className="col-md-6"><input type="text" className="form-control" placeholder="Phone number"/></div>
                         </div>
                         <div className="row mt-3">
-                            <div className="col-md-6"><input type="text" className="form-control" placeholder="Bank Name" value="Bank of America"/></div>
-                            <div className="col-md-6"><input type="text" className="form-control" value="043958409584095" placeholder="Account Number"/></div>
+                            <div className="col-md-6"><input type="password" className="form-control" value={user.password}/></div>
+                            <div className="col-md-6"><input type="password" className="form-control" value={user.password}/></div>
                         </div>
                         <div className="mt-5 text-right"><button className="btn btn-primary profile-button" type="button">Save Profile</button></div>
                     </div>
