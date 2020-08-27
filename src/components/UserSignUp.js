@@ -41,6 +41,7 @@ export default function UserSignUp() {
               type="text"
               class="form-control"
               id="first-name"
+              required="required"
             />
           </div>
           <div class="form-group">
@@ -51,6 +52,7 @@ export default function UserSignUp() {
               type="text"
               class="form-control"
               id="last-name"
+              required="required"
             />
           </div>
           <div class="form-group">
@@ -61,6 +63,7 @@ export default function UserSignUp() {
               type="text"
               class="form-control"
               id="user-name"
+              required="required"
             />
           </div>
           <div class="form-group">
@@ -68,9 +71,10 @@ export default function UserSignUp() {
               name="emailAddress"
               placeholder="Email Address"
               ref={register}
-              type="text"
+              type="email"
               class="form-control"
               id="email-address"
+              required="required"
             />
           </div>
           <div class="form-group">
@@ -81,6 +85,7 @@ export default function UserSignUp() {
               ref={register}
               class="form-control"
               id="password"
+              required="required"
             />
           </div>
           <div class="form-group">
@@ -91,6 +96,7 @@ export default function UserSignUp() {
               ref={register}
               class="form-control"
               id="confirm-password"
+              required="required"
             />
           </div>
           <input type="submit" class="btn btn-primary" />

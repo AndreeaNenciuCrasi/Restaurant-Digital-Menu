@@ -2,7 +2,7 @@ import React, { useState, useRef } from "react";
 import { useForm } from "react-hook-form";
 import { Redirect } from "react-router";
 
-export default function UserLogin({ login }) {
+export default function UserLogin() {
   const { register, handleSubmit } = useForm();
   //   const [userName, setUserName] = useState("");
 
@@ -44,7 +44,7 @@ export default function UserLogin({ login }) {
           </div>
           <div className="form-group">
             <input
-              type="text"
+              type="email"
               name="emailAddress"
               placeholder="Email Address"
               ref={register}
