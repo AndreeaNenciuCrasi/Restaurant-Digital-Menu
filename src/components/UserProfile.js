@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { Link } from "react-router-dom";
 import axios from "axios";
+import { FontAwesome } from "react-icons/fa";
+import {FaUser} from "react-icons/fa";
 import "../UserProfile.css";
 
 export default function UserProfile() {
@@ -28,7 +30,9 @@ export default function UserProfile() {
             <div className="row">
                 <div className="col-md-4 border-right">
                     <div className="d-flex flex-column align-items-center text-center p-3 py-5">
-                        <img className="rounded-circle mt-5" src="https://i.imgur.com/0eg0aG0.jpg" width="90" />
+                        <h1>
+                            <FaUser />
+                        </h1>
                         <span className="font-weight-bold">{user.firstName}  {user.lastName}</span>
                         <span className="text-black-50">{user.emailAddress}</span>
                         <button className="btn btn-primary profile-button">Favorite meals</button>
@@ -37,7 +41,7 @@ export default function UserProfile() {
                 <div className="col-md-8">
                     <div className="p-3 py-5">
                         <div className="d-flex justify-content-between align-items-center mb-3">
-                            <div className="d-flex flex-row align-items-center back"><i className="fa fa-long-arrow-left mr-1 mb-1"></i>
+                            <div className="d-flex flex-row align-items-center back">
                                 <Link to= "/">
                                     <button className="btn btn-primary profile-button">
                                         Back to home
