@@ -30,9 +30,18 @@ function MenuBar() {
         <Nav.Link href="/surprise-meal">Surprise Meal</Nav.Link>
         <Nav.Link href="/signup">SignUp</Nav.Link>
         <Nav.Link href="/login">Login</Nav.Link>
-        <Nav.Link href="/user-profile">{ window.sessionStorage.getItem("User") ? `User Profile` : null }</Nav.Link>
-        <Nav.Link href="/logout">{ window.sessionStorage.getItem("User") ? `Logout` : null }</Nav.Link>
-        <Nav.Link href="#">{ window.sessionStorage.getItem("User") ? `Logged in as ${window.sessionStorage.getItem("User")}` : "Not logged in" }</Nav.Link>
+        <Nav.Link href="/user-profile">
+          {window.sessionStorage.getItem("User") ? `User Profile` : null}
+        </Nav.Link>
+        <Nav.Link href="/logout">
+          {window.sessionStorage.getItem("User") ? `Logout` : null}
+        </Nav.Link>
+        <Nav.Link href="#">
+          {window.sessionStorage.getItem("User")
+            ? `Logged in as ${window.sessionStorage.getItem("User")}`
+            : "Not logged in"}
+        </Nav.Link>
+        <Nav.Link href="/cart">Cart</Nav.Link>
       </Nav>
       <Form inline onSubmit={handleSubmit}>
         <FormControl
