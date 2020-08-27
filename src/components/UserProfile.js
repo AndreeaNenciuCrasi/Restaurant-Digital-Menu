@@ -21,8 +21,7 @@ export default function UserProfile() {
           setUser(response.data);
           console.log(response.data)
         }
-        getData();
-        
+        getData();  
       }, []);
 
     return (
@@ -35,7 +34,9 @@ export default function UserProfile() {
                         </h1>
                         <span className="font-weight-bold">{user.firstName}  {user.lastName}</span>
                         <span className="text-black-50">{user.emailAddress}</span>
-                        <button className="btn btn-primary profile-button">Favorite meals</button>
+                        <Link to = "/user-profile/favorites">
+                            <button className="btn btn-primary profile-button">Favorite meals</button>
+                        </Link>
                     </div>                   
                 </div>
                 <div className="col-md-8">

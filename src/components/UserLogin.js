@@ -13,9 +13,9 @@ export default function UserLogin() {
         setUserLogin(true);
         window.sessionStorage.setItem("User", data.userName);
         creatCart(data.userName);
-        alert("You are login Bon Appetit !");
+        alert("You are logged in!\nBon Appetit !");
       } else {
-        alert("User or password wrong");
+        alert("Wrong user or password!");
       }
     });
   };

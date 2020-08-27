@@ -36,5 +36,7 @@ function AllMeals() {
     </div>
   );
 }
+
+
    
 export default AllMeals;
