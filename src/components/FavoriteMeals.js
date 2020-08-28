@@ -3,91 +3,53 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 
 export default function FavoriteMeals() {
+
   const username = window.sessionStorage.getItem("User");
 
   const [favoriteMeals, setFavoriteMeals] = useState([]);
-  const [item, setItem] = useState([]);
-  let mealList = [];
 
   useEffect(() => {
     async function getData() {
       const response = await axios.get(
-        `http://localhost:8080/api/v2/user/${username}/favorites`
+        `http://localhost:8080/api/v2/user/view/${username}`
       );
-      setFavoriteMeals(response.data);
-      console.log(response.data);
+      setFavoriteMeals(response.data.favoritesMap);
+      console.log(response.data.favoritesMap);
     }
     getData();
-
-    // for (var favoriteMeal in favoriteMeals) {
-
-    //   async function getMealData(favoriteMeal) {
-    //     const response = await axios.get(
-    //         `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${favoriteMeal}`
-    //     );
-    //     setItem(response.data.meals[0]);
-    //     mealList.push(response.data.meals[0]);
-
-    //   }
-    //   getMealData();
-
-    // }
-    async function getMealData() {
-      const response = await axios.get(
-        `https://www.themealdb.com/api/json/v1/1/lookup.php?i=52874`
-      );
-      setItem(response.data.meals[0]);
-    }
-    getMealData();
-    // mealList.push(item);
   }, []);
-
-  mealList.push(item);
-  // mealList.push(item);
-
-  console.log(item);
-  console.log(favoriteMeals);
-  console.log(mealList);
-
-  // favoriteMeals.forEach(async function (favoriteMeal) {
-  //     const response = await axios.get(
-  //         `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${favoriteMeal}`
-  //     );
-  //     setItem(response.data.meals[0]);
-  //     MealsList.push(response.data.meals[0]);
-  //     // console.log(response.data.meals[0]);
-  // });
 
   return (
     <div className="container FoodCategoriesContainer">
-      {/* {MealsList.map((item) => ( */}
-      <div
-        key={item.strMeal}
-        className="card FoodCategoriesCard"
-        style={{ width: "18rem", display: "inline-block" }}
-      >
-        <img
-          className="card-img-top cardImg"
-          src={item.strMealThumb}
-          alt="Card image cap"
-        />
-        <div className="card-body">
-          <h5 className="card-title">{item.strMeal}</h5>
-          <Link to={`/food-details/${item.idMeal}`}>
-            <button type="button" value="submit" className="btn btn-info">
-              Info
-            </button>{" "}
-          </Link>
-          <a
-            href="#"
-            onClick={() => handleClick(item.strMeal)}
-            className="btn btn-primary"
+      <div style = {{ "color" : "white"}}>Favorite meals</div>
+      {Object.keys(favoriteMeals).map((key) => (
+        <div
+            key={key}
+            className="card FoodCategoriesCard"
+            style={{ width: "18rem", display: "inline-block" }}
           >
-            Order
-          </a>
+            <img
+            className="card-img-top cardImg"
+            src={favoriteMeals[key][0]}
+            alt="Card image cap"
+          />
+          <div className="card-body">
+            <h5 className="card-title">{favoriteMeals[key][1]}</h5>
+            <Link to={`/food-details/${key}`}>
+              <button type="button" value="submit" className="btn btn-info">
+                Info
+              </button>{" "}
+            </Link>
+            <a
+              href="#"
+              onClick={() => handleClick(favoriteMeals[key][1])}
+              className="btn btn-primary"
+            >
+              Order
+            </a>
+          </div>
         </div>
-      </div>
-      {/* ))} */}
+      ))}
     </div>
   );
 }
@@ -102,3 +64,4 @@ function handleClick(data) {
     console.log(response);
   });
 }
+

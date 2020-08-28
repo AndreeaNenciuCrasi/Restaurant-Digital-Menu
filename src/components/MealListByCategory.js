@@ -7,9 +7,6 @@ import "./FoodCategories.css";
 
 function MealListByCategory({ name }) {
   const [foodListCategories, setFoodListCategories] = useState([]);
-  const [mealName, setMealName] = useState("");
-
-  const [favoriteMealName, setFavoriteMealName] = useState("");
 
   useEffect(() => {
     async function getData() {
@@ -24,19 +21,19 @@ function MealListByCategory({ name }) {
   return (
     <div className="container FoodCategoriesContainer">
       {foodListCategories.map((item) => (
-        <div
-          key={item.strMeal}
-          className="card FoodCategoriesCard"
-          style={{ width: "18rem", display: "inline-block" }}
-        >
-          <img
+          <div
+            key={item.strMeal}
+            className="card FoodCategoriesCard"
+            style={{ width: "18rem", display: "inline-block" }}
+          >
+            <img
             className="card-img-top cardImg"
             src={item.strMealThumb}
             alt="Card image cap"
           />
           <div className="card-body">
             <h5 className="card-title">{item.strMeal.substring(0, 25)}</h5>
-            <button type="button" onClick={() => faveClick(item.idMeal)}>
+            <button type="button" onClick={() => faveClick(item)}>
               <h5 >
                 <FaHeart style = {{ "color" : "blue" }}/>
               </h5>
@@ -74,7 +71,7 @@ function handleClick(data) {
 function faveClick(favoriteMeal) {
   const username = window.sessionStorage.getItem("User");
   alert("Meal added to your favorites!");
-  fetch(`http://localhost:8080/api/v2/user/${username}/favorites/${favoriteMeal}`, {
+  fetch(`http://localhost:8080/api/v2/user/${username}/favorites/${favoriteMeal.idMeal}`, {
     method: "PUT",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(favoriteMeal),

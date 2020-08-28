@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { Link } from "react-router-dom";
 import axios from "axios";
-import { FontAwesome } from "react-icons/fa";
 import {FaUser} from "react-icons/fa";
 import "../UserProfile.css";
 
