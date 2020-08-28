@@ -20,7 +20,7 @@ export default function UserSignUp() {
 
   return (
     <div>
-      {toHome ? <Redirect to="/" /> : null}
+      {toHome ? <Redirect to="/login" /> : null}
       <div
         className="container-register"
         style={{
