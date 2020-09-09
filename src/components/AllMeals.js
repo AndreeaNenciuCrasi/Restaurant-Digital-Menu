@@ -17,6 +17,8 @@ function AllMeals() {
     }, []);
 
     return (
+      <div>
+        <h3 style = {{ "color" : "white"}}>Only today any meal for 5$ per portion!</h3>
         <div className="container FoodCategoriesContainer">
       {allMeals.map((item) => (
         <div
@@ -33,6 +35,7 @@ function AllMeals() {
           </div>
         </div>
       ))}
+    </div>
     </div>
   );
 }
