@@ -37,19 +37,18 @@ export default function MenuBar() {
         <Nav.Link href="/">Home</Nav.Link>
         <Nav.Link href="/categories">Food categories</Nav.Link>
         <Nav.Link href="/surprise-meal">Surprise Meal</Nav.Link>
-        <Nav.Link href="/signup">{userIsLogin ? null : "SignUp"}</Nav.Link>
-        <Nav.Link href="/login">{userIsLogin ? null : "Login"}</Nav.Link>
-        <Nav.Link href="/user-profile">
-          {userIsLogin ? `User Profile` : null}
-        </Nav.Link>
-        <Nav.Link href="/logout">{userIsLogin ? `Logout` : null}</Nav.Link>
+        {userIsLogin ? null : <Nav.Link href="/signup">SignUp</Nav.Link>}
+        {userIsLogin ? null : <Nav.Link href="/login">Login</Nav.Link>}
+        {userIsLogin ? <Nav.Link href="/user-profile">User Profile</Nav.Link> : null}
+
+        <Nav.Link href="/logout">{userIsLogin ? "Logout" : null}</Nav.Link>
         <Nav.Link href="#">
           {userIsLogin
             ? `Logged in as ${window.sessionStorage.getItem("User")}`
             : "Not logged in"}
         </Nav.Link>
-          <Nav.Link href="/cart">
-            Cart
+        <Nav.Link href="/cart">
+          Cart
           </Nav.Link>
       </Nav>
       <Form inline onSubmit={handleSubmit}>
