@@ -35,11 +35,11 @@ export default function FavoriteMeals() {
           />
           <div className="card-body">
             <h5 className="card-title">{item.name}</h5>
-            {/* <Link to={`/food-details/${key}`}>
+            <Link to={`/food-details/${item.idMeal}`}>
               <button type="button" value="submit" className="btn btn-info">
                 Info
               </button>{" "}
-            </Link> */}
+            </Link>
             <a
               href="#"
               onClick={() => handleClick(item.name)}
