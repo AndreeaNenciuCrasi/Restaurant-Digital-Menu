@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Redirect } from "react-router";
 import { Button, Modal } from "react-bootstrap";
+import "./UserLogin.css";
+
 
 export default function UserLogin() {
   const { register, handleSubmit } = useForm();
@@ -32,7 +34,7 @@ export default function UserLogin() {
   const handleShow = () => setShow(true);
 
   return (
-    <div>
+    <div className="LoginContainer">
       <div>
         <>
           <Modal show={show} onHide={handleClose}>
@@ -50,7 +52,7 @@ export default function UserLogin() {
       </div>
       {userLogin && <Redirect to="/" />}
       <div
-        className="container-register"
+        className="   LoginContainer "
         style={{
           width: "38rem",
           marginTop: "50px",
@@ -59,7 +61,7 @@ export default function UserLogin() {
         }}
       >
         <form onSubmit={handleSubmit(onSubmit)}>
-          <h5 style={{ color: "blue" }}>Login</h5>
+          <h5 style={{ color: "white" }}>Login</h5>
           <div className="form-group">
             <input
               name="userName"

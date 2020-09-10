@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import {FaUser} from "react-icons/fa";
-import "../UserProfile.css";
+import "./UserProfile.css";
 import { Button, Modal } from "react-bootstrap";
 import { Redirect } from "react-router";
 
@@ -51,7 +51,7 @@ export default function UserProfile() {
     const handleShow = () => setShow(true);
 
     return (
-        <div>{toHome ? <Redirect to="/" /> : null}
+        <div style={{marginBottom: "25rem"}}>{toHome ? <Redirect to="/" /> : null}
         <div className="container rounded bg-white mt-5">
             <div className="row">
                 <div className="col-md-4 border-right">

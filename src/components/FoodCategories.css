@@ -1,5 +1,12 @@
 .FoodCategoriesContainer {
   margin-top: 50px;
+  
+}
+
+.RegisterContainer{
+  margin: auto;
+  margin-left: 30%;
+  margin-bottom: 28rem;
 }
 
 .FoodCategoriesCard {
