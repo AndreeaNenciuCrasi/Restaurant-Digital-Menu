@@ -9,33 +9,83 @@ import "./FoodCategories.css";
 function MealListByCategory({ name }) {
   const [foodListCategories, setFoodListCategories] = useState([]);
   const [show, setShow] = useState(false);
+  const [favoriteMeals, setFavoriteMeals] = useState([]);
+  
+  const username = window.sessionStorage.getItem("User");
 
   useEffect(() => {
+
     async function getData() {
       const response = await axios.get(
         `https://www.themealdb.com/api/json/v1/1/filter.php?c=${name}`
       );
       setFoodListCategories(response.data.meals);
+    
+
+    
+      // const responseFavorites = await axios.get(
+      //   `http://localhost:8080/api/v2/user/${username}/favorites`
+      // );
+      // setFavoriteMeals(responseFavorites.data);
+      // console.log(responseFavorites.data)
     }
+
     getData();
-  }, [name]);
+    }, [name]);
+
 
   const handleClose = () => { 
     setShow(false); }
 
-  const faveClick = (favoriteMeal) => {
-    setShow(true);
-    const username = window.sessionStorage.getItem("User");
-    fetch(
-      `http://localhost:8080/api/v2/user/${username}/favorites/${favoriteMeal.idMeal}`,
-      {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(favoriteMeal),
+  // const checkFavorites = (newFave) => {
+  //   console.log(favoriteMeals)
+  //   for (let item of favoriteMeals) {
+  //     if (item.idMeal === newFave.idMeal) {
+  //       setAlreadyFave(1);
+  //     }
+  //   }
+  // }  
+
+  async function getData() {
+    const responseFavorites = await axios.get(
+      `http://localhost:8080/api/v2/user/${username}/favorites`
+    );
+    setFavoriteMeals(responseFavorites.data);
+  }
+
+  const faveClick = (newFavoriteMeal) => {
+    // async function getData() {
+    //   const responseFavorites = await axios.get(
+    //     `http://localhost:8080/api/v2/user/${username}/favorites`
+    //   );
+    //   setFavoriteMeals(responseFavorites.data);
+    // }
+
+    getData();
+
+    let alreadyFave=false;
+    for (let item of favoriteMeals) {
+      if (item.idMeal === newFavoriteMeal.idMeal) {
+        alreadyFave=true;
       }
-    ).then((response) => {
-      console.log(response);
-    });
+    }
+
+    if (alreadyFave==false) {
+      setShow(true);
+      fetch(
+        `http://localhost:8080/api/v2/user/${username}/favorites/${newFavoriteMeal.idMeal}`,
+        {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(newFavoriteMeal),
+        }
+      ).then((response) => {
+        console.log(response);
+      });
+
+    } else {
+      alert("Meal already in favorites!");
+    }
   }
 
   return (
@@ -53,12 +103,13 @@ function MealListByCategory({ name }) {
           />
           <div className="card-body">
             <h5 className="card-title">{item.strMeal.substring(0, 20)}</h5>
-
+            {/* {favoriteMeals.map((it) => ( */}
             <button style={{ borderStyle: "none" , backgroundColor: "cyan"}} type="button" onClick={() => faveClick(item)}>
               <h5>
                 <FaHeart style={{ color: "white" }} />
               </h5>
             </button>{" "}
+            {/* ))} */}
             <Link to={`/food-details/${item.idMeal}`}>
               <button type="button" value="submit" className="btn btn-info">
                 Info
