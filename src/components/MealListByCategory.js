@@ -60,11 +60,14 @@ function MealListByCategory({ name }) {
 function handleClick(mealToAddToCart) {
   // alert("Meal added to your shopping cart!");
   const username = window.sessionStorage.getItem("User");
+  const image = mealToAddToCart.strMealThumb.replace(
+    "https://www.themealdb.com/images/media/meals/",
+    ""
+  );
   fetch(
-    `http://localhost:8080/api/v2/cart/${username}/meal/${mealToAddToCart.strMeal}/cart/${mealToAddToCart.strMealThumb}`,
+    `http://localhost:8080/api/v2/cart/${username}/meal/${mealToAddToCart.strMeal}/tocart/${image}`,
     {
       method: "POST",
-      // mode: "no-cors",
       headers: {
         "Content-Type": "application/json",
       },

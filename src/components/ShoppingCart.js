@@ -4,41 +4,41 @@ import { Link } from "react-router-dom";
 import "./FoodCategories.css";
 
 function ShoppingCart() {
-  const [cartList, setCartList] = useState({});
-  const [totalPrice, setTotalPrice] = useState(0);
+  const [cartId, setCartId] = useState(0);
+  const [listOfMeals, setListOfMeals] = useState([]);
+  const userName = window.sessionStorage.getItem("User");
 
   useEffect(() => {
     async function getData() {
-      const response = await axios.get(
-        "http://localhost:8080/api/v2/cart/list"
+      const cartResponse = await axios.get(
+        `http://localhost:8080/api/v2/cart/view/${userName}`
       );
-      setCartList(response.data);
-      console.log(response.data);
+      setCartId(cartResponse.data);
+      console.log(cartResponse.data + "cart id");
+      const mealResponse = await axios.get(
+        `http://localhost:8080/api/v2/cart/mealsInCart/${cartResponse.data}`
+      );
+      console.log(mealResponse.data);
+      setListOfMeals(mealResponse.data);
     }
     getData();
 
-    async function getPrice() {
-      const response = await axios.get(
-        "http://localhost:8080/api/v2/cart/list/price"
-      );
-      setTotalPrice(response.data);
-      console.log(response.data);
-    }
-    getPrice();
+    // async function getMealsList() {
+    //   console.log(cartId);
+    //   const response = await axios.get(
+    //     `http://localhost:8080/api/v2/cart/mealsInCart/${cartId}`
+    //   );
+    //   setListOfMeals(response.data);
+    //   console.log(response.data);
+    // }
+    // getMealsList();
   }, []);
-
-  // function calcTotalPrice() {
-  //   const sum = 0;
-  //   Object.keys(cartList).map((key, index) => (sum += 5 * cartList[key]));
-  //   setTotalPrice(sum);
-  //   return sum;
-  // }
 
   return (
     <div className="container FoodCategoriesContainer">
       <ul class="list-group">
         <li class="list-group-item active">Cart</li>
-        {Object.keys(cartList).map((key, index) => (
+        {/* {Object.keys(cartList).map((key, index) => (
           <div class="card" style={{ width: "100%" }} key={index}>
             <ul class="list-group list-group-flush">
               <li class="list-group-item">{key}</li>
@@ -47,7 +47,7 @@ function ShoppingCart() {
             </ul>
           </div>
         ))}
-        <li class="list-group-item">Total Price {totalPrice}</li>
+        <li class="list-group-item">Total Price {totalPrice}</li> */}
       </ul>
     </div>
   );
