@@ -80,16 +80,16 @@ export default function UserProfile() {
                         </div>
                         <form onSubmit={handleSubmit(onSubmit)}>
                         <div className="row mt-2">
-                            <div className="col-md-6"><input type="text" className="form-control" placeholder={user.firstName} ref={register} name="firstName"/></div>
-                            <div className="col-md-6"><input type="text" className="form-control" placeholder={user.lastName} ref={register} name="lastName"/></div>
+                            <div className="col-md-6"><input type="text" className="form-control" placeholder={user.firstName} ref={register} name="firstName" defaultValue={user.firstName}/></div>
+                            <div className="col-md-6"><input type="text" className="form-control" placeholder={user.lastName} ref={register} name="lastName" defaultValue={user.lastName}/></div>
                         </div>
                         <div className="row mt-3">
-                            <div className="col-md-6"><input type="text" className="form-control" placeholder={user.emailAddress} ref={register} name="emailAddress"/></div>
+                            <div className="col-md-6"><input type="email" className="form-control" placeholder={user.emailAddress} ref={register} name="emailAddress" /></div>
                             <div className="col-md-6"><input type="text" className="form-control" value={user.userName} ref={register} name="userName"/></div>
                         </div>
                         <div className="row mt-3">
-                            <div className="col-md-6"><input type="text" className="form-control" placeholder={user.deliveryAddress ? user.deliveryAddress : "Address"} ref={register} name="deliveryAddress"/></div>
-                            <div className="col-md-6"><input type="text" className="form-control" placeholder={user.phoneNumber ? user.phoneNumber : "Phone Number"} ref={register} name="phoneNumber"/></div>
+                            <div className="col-md-6"><input type="text" className="form-control" placeholder={user.deliveryAddress ? user.deliveryAddress : "Address"} ref={register} name="deliveryAddress" defaultValue={user.deliveryAddress}/></div>
+                            <div className="col-md-6"><input type="text" className="form-control" placeholder={user.phoneNumber ? user.phoneNumber : "Phone Number"} ref={register} name="phoneNumber" defaultValue={user.phoneNumber}/></div>
                         </div>
                         <div className="row mt-3">
                             <div className="col-md-6"><input type="password" className="form-control" value={user.password} ref={register} name="password"/></div>
