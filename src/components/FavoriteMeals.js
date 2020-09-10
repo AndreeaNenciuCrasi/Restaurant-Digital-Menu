@@ -34,12 +34,12 @@ export default function FavoriteMeals() {
             alt="Card image cap"
           />
           <div className="card-body">
-            <h5 className="card-title">{item.name}</h5>
+            <h5 className="card-title">{item.name.substring[0,20]}</h5>
             <Link to={`/food-details/${item.idMeal}`}>
               <button type="button" value="submit" className="btn btn-info">
                 Info
               </button>{" "}
-            </Link> */}
+            </Link>
             <a href="#" onClick={() => handleClick(item)} className="btn btn-primary">
               Order
               </a>
