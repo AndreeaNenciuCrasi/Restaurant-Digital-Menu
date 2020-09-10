@@ -3,10 +3,12 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import { FontAwesome } from "react-icons/fa";
 import { FaHeart } from "react-icons/fa";
+import { Button, Modal } from "react-bootstrap";
 import "./FoodCategories.css";
 
 function MealListByCategory({ name }) {
   const [foodListCategories, setFoodListCategories] = useState([]);
+  const [show, setShow] = useState(false);
 
   useEffect(() => {
     async function getData() {
@@ -17,6 +19,24 @@ function MealListByCategory({ name }) {
     }
     getData();
   }, [name]);
+
+  const handleClose = () => { 
+    setShow(false); }
+
+  const faveClick = (favoriteMeal) => {
+    setShow(true);
+    const username = window.sessionStorage.getItem("User");
+    fetch(
+      `http://localhost:8080/api/v2/user/${username}/favorites/${favoriteMeal.idMeal}`,
+      {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(favoriteMeal),
+      }
+    ).then((response) => {
+      console.log(response);
+    });
+  }
 
   return (
     <div className="container FoodCategoriesContainer">
@@ -54,6 +74,14 @@ function MealListByCategory({ name }) {
           </div>
         </div>
       ))}
+      <>
+        <Modal show={show} onHide={handleClose}>
+          <Modal.Header closeButton onClick={handleClose}>
+            <Modal.Title>Good choice!</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>Meal added to favorites :)</Modal.Body>
+        </Modal>
+      </>
     </div>
   );
 }
@@ -73,21 +101,6 @@ function handleClick(mealToAddToCart) {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(mealToAddToCart),
-    }
-  ).then((response) => {
-    console.log(response);
-  });
-}
-
-function faveClick(favoriteMeal) {
-  const username = window.sessionStorage.getItem("User");
-  alert("Meal added to your favorites!");
-  fetch(
-    `http://localhost:8080/api/v2/user/${username}/favorites/${favoriteMeal.idMeal}`,
-    {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(favoriteMeal),
     }
   ).then((response) => {
     console.log(response);
