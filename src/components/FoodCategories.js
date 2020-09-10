@@ -55,7 +55,7 @@ function FoodCategories() {
             <p className="card-text FoodCategoriesCardText">
               {item.showMoreDetails
               ? item.strCategoryDescription
-              : item.strCategoryDescription.substring(0, 100) + "..."
+              : item.strCategoryDescription.substring(0, 50) + "..."
               } {" "}
               <a href="#" name={item.idCategory} onClick={showMore}>
                 {textDisplay(item.showMoreDetails)}
