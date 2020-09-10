@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Redirect } from "react-router";
+import { Button, Modal } from "react-bootstrap";
 
 export default function UserSignUp() {
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, errors } = useForm();
   const [toHome, setToHome] = useState();
+  const [show, setShow] = useState(false);
 
   const onSubmit = (data) => {
     fetch(" http://localhost:8080/api/v2/user", {
@@ -14,9 +16,15 @@ export default function UserSignUp() {
     }).then((response) => {
       if (response.status === 200) {
         setToHome(true);
+      } else if(response.status ===500){
+        handleShow();
+
       }
     });
   };
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
 
   return (
     <div>
@@ -59,23 +67,25 @@ export default function UserSignUp() {
             <input
               name="userName"
               placeholder="Username"
-              ref={register}
+              ref={register({ required: true, maxLength: 20 })}
               type="text"
               class="form-control"
               id="user-name"
               required="required"
             />
+            {errors.userName && "Username is required"}
           </div>
           <div class="form-group">
             <input
               name="emailAddress"
               placeholder="Email Address"
-              ref={register}
+              ref={register({ required: true, maxLength: 30 })}
               type="email"
               class="form-control"
               id="email-address"
               required="required"
             />
+            {errors.emailAddress && "E-mail is required"}
           </div>
           <div class="form-group">
             <input
@@ -87,6 +97,7 @@ export default function UserSignUp() {
               id="password"
               required="required"
             />
+            {errors.password && "Password is required"}
           </div>
           <div class="form-group">
             <input
@@ -102,6 +113,19 @@ export default function UserSignUp() {
           <input type="submit" class="btn btn-primary" />
         </form>
       </div>
+      <>
+          <Modal show={show} onHide={handleClose}>
+            <Modal.Header closeButton>
+              <Modal.Title>Message</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>Username or E-mail already exists</Modal.Body>
+            <Modal.Footer>
+              <Button variant="secondary" onClick={handleClose}>
+                Close
+          </Button>
+            </Modal.Footer>
+          </Modal>
+        </>
     </div>
   );
 }

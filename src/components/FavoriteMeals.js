@@ -11,10 +11,10 @@ export default function FavoriteMeals() {
   useEffect(() => {
     async function getData() {
       const response = await axios.get(
-        `http://localhost:8080/api/v2/user/view/${username}`
+        `http://localhost:8080/api/v2/user/${username}/favorites`
       );
-      setFavoriteMeals(response.data.favoritesMap);
-      console.log(response.data.favoritesMap);
+      setFavoriteMeals(response.data);
+      console.log(response.data);
     }
     getData();
   }, []);
@@ -22,27 +22,27 @@ export default function FavoriteMeals() {
   return (
     <div className="container FoodCategoriesContainer">
       <div style = {{ "color" : "white"}}>Favorite meals</div>
-      {Object.keys(favoriteMeals).map((key) => (
+      {favoriteMeals.map(item => (
         <div
-            key={key}
+            // key={key}
             className="card FoodCategoriesCard"
             style={{ width: "18rem", display: "inline-block" }}
           >
             <img
             className="card-img-top cardImg"
-            src={favoriteMeals[key][0]}
+            src={item.image}
             alt="Card image cap"
           />
           <div className="card-body">
-            <h5 className="card-title">{favoriteMeals[key][1]}</h5>
-            <Link to={`/food-details/${key}`}>
+            <h5 className="card-title">{item.name}</h5>
+            {/* <Link to={`/food-details/${key}`}>
               <button type="button" value="submit" className="btn btn-info">
                 Info
               </button>{" "}
-            </Link>
+            </Link> */}
             <a
               href="#"
-              onClick={() => handleClick(favoriteMeals[key][1])}
+              onClick={() => handleClick(item.name)}
               className="btn btn-primary"
             >
               Order

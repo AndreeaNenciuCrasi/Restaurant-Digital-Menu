@@ -1,10 +1,15 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Redirect } from "react-router";
+import { Button, Modal } from "react-bootstrap";
 
 export default function UserLogin() {
   const { register, handleSubmit } = useForm();
   const [userLogin, setUserLogin] = useState(false);
+  // Pop-up Alert
+  const [show, setShow] = useState(false);
+  const [modalMessage, setModalMessage] = useState("")
+
 
   const onSubmit = (data) => {
     let promiseA = loginUser(data);
@@ -13,15 +18,36 @@ export default function UserLogin() {
         setUserLogin(true);
         window.sessionStorage.setItem("User", data.userName);
         creatCart(data.userName);
-        alert("You are logged in!\nBon Appetit !");
+        setModalMessage("You are logged in!\nBon Appetit !")
+        handleShow();
       } else {
-        alert("Wrong user or password!");
+        setModalMessage("Username or Password is incorrect");
+        handleShow();
+
       }
     });
   };
 
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
   return (
     <div>
+      <div>
+        <>
+          <Modal show={show} onHide={handleClose}>
+            <Modal.Header closeButton>
+              <Modal.Title>Message</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>{modalMessage}</Modal.Body>
+            <Modal.Footer>
+              <Button variant="secondary" onClick={handleClose}>
+                Close
+          </Button>
+            </Modal.Footer>
+          </Modal>
+        </>
+      </div>
       {userLogin && <Redirect to="/" />}
       <div
         className="container-register"
@@ -59,6 +85,7 @@ export default function UserLogin() {
           <input type="submit" className="btn btn-primary" />
         </form>
       </div>
+
     </div>
   );
 }

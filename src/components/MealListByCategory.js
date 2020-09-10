@@ -33,9 +33,10 @@ function MealListByCategory({ name }) {
           />
           <div className="card-body">
             <h5 className="card-title">{item.strMeal.substring(0, 25)}</h5>
-            <button type="button" onClick={() => faveClick(item)}>
+
+            <button style={{ borderStyle: "none" }} type="button" onClick={() => faveClick(item)}>
               <h5>
-                <FaHeart style={{ color: "blue" }} />
+                <FaHeart style={{ color: "green" }} />
               </h5>
             </button>{" "}
             <Link to={`/food-details/${item.idMeal}`}>
