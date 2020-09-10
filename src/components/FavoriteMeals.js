@@ -5,7 +5,6 @@ import { Link } from "react-router-dom";
 export default function FavoriteMeals() {
 
   const username = window.sessionStorage.getItem("User");
-
   const [favoriteMeals, setFavoriteMeals] = useState([]);
 
   useEffect(() => {
@@ -22,9 +21,9 @@ export default function FavoriteMeals() {
   return (
     <div style={{marginBottom : "25rem"}}className="container FoodCategoriesContainer">
       <div style={{ "color": "white" }}><h3>Favorite meals</h3></div>
-      {favoriteMeals.map(item => (
+      {favoriteMeals.map((item,i) => (
         <div
-          // key={key}
+          key={i}
           className="card FoodCategoriesCard"
           style={{ width: "18rem", display: "inline-block" }}
         >
@@ -34,7 +33,7 @@ export default function FavoriteMeals() {
             alt="Card image cap"
           />
           <div className="card-body">
-            <h5 className="card-title">{item.name.substring[0,20]}</h5>
+            <h5 className="card-title">{item.name.substring(0,20)}</h5>
             <Link to={`/food-details/${item.idMeal}`}>
               <button type="button" value="submit" className="btn btn-info">
                 Info
