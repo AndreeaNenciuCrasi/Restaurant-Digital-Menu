@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Redirect } from "react-router";
 import { Button, Modal } from "react-bootstrap";
+import "./FoodCategories.css"; 
 
 export default function UserSignUp() {
   const { register, handleSubmit, errors } = useForm();
@@ -27,7 +28,7 @@ export default function UserSignUp() {
   const handleShow = () => setShow(true);
 
   return (
-    <div>
+    <div className="RegisterContainer">
       {toHome ? <Redirect to="/login" /> : null}
       <div
         className="container-register"
@@ -39,7 +40,7 @@ export default function UserSignUp() {
         }}
       >
         <form onSubmit={handleSubmit(onSubmit)}>
-          <h5 style={{ color: "blue" }}>Register account</h5>
+          <h5 style={{ color: "white" }}>Register account</h5>
           <div class="form-group">
             {/* <label for="First Name">First Name</label> */}
             <input

@@ -20,15 +20,15 @@ export default function FavoriteMeals() {
   }, []);
 
   return (
-    <div className="container FoodCategoriesContainer">
-      <div style = {{ "color" : "white"}}>Favorite meals</div>
+    <div style={{marginBottom : "25rem"}}className="container FoodCategoriesContainer">
+      <div style={{ "color": "white" }}><h3>Favorite meals</h3></div>
       {favoriteMeals.map(item => (
         <div
-            // key={key}
-            className="card FoodCategoriesCard"
-            style={{ width: "18rem", display: "inline-block" }}
-          >
-            <img
+          // key={key}
+          className="card FoodCategoriesCard"
+          style={{ width: "18rem", display: "inline-block" }}
+        >
+          <img
             className="card-img-top cardImg"
             src={item.image}
             alt="Card image cap"
@@ -39,14 +39,10 @@ export default function FavoriteMeals() {
               <button type="button" value="submit" className="btn btn-info">
                 Info
               </button>{" "}
-            </Link>
-            <a
-              href="#"
-              onClick={() => handleClick(item.name)}
-              className="btn btn-primary"
-            >
+            </Link> */}
+            <a href="#" onClick={() => handleClick(item)} className="btn btn-primary">
               Order
-            </a>
+              </a>
           </div>
         </div>
       ))}
@@ -54,13 +50,22 @@ export default function FavoriteMeals() {
   );
 }
 
-function handleClick(data) {
-  alert("Meal added to your shopping cart!");
-  fetch(`http://localhost:8080/api/v2/cart/${data}`, {
-    method: "PUT",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(data),
-  }).then((response) => {
+function handleClick(mealToAddToCart) {
+  const username = window.sessionStorage.getItem("User");
+  const image = mealToAddToCart.image.replace(
+    "https://www.themealdb.com/images/media/meals/",
+    ""
+  );
+  fetch(
+    `http://localhost:8080/api/v2/cart/${username}/meal/${mealToAddToCart.name}/tocart/${image}`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(mealToAddToCart),
+    }
+  ).then((response) => {
     console.log(response);
   });
 }

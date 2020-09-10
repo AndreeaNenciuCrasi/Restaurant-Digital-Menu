@@ -32,7 +32,7 @@ function SearchResults({ name }) {
             <div className="card-body">
               <h5 className="card-title">{item.strMeal.substring(0, 25)}</h5>
 
-              <a href="#" className="btn btn-primary">
+              <a href="#" onClick={() => handleClick(item)} className="btn btn-primary">
                 Order
               </a>
             </div>
@@ -43,6 +43,27 @@ function SearchResults({ name }) {
       )}
     </div>
   );
+}
+
+function handleClick(mealToAddToCart) {
+  // alert("Meal added to your shopping cart!");
+  const username = window.sessionStorage.getItem("User");
+  const image = mealToAddToCart.strMealThumb.replace(
+    "https://www.themealdb.com/images/media/meals/",
+    ""
+  );
+  fetch(
+    `http://localhost:8080/api/v2/cart/${username}/meal/${mealToAddToCart.strMeal}/tocart/${image}`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(mealToAddToCart),
+    }
+  ).then((response) => {
+    console.log(response);
+  });
 }
 
 export default SearchResults;
