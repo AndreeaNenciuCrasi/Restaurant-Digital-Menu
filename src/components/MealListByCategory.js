@@ -33,6 +33,7 @@ function MealListByCategory({ name }) {
           />
           <div className="card-body">
             <h5 className="card-title">{item.strMeal.substring(0, 25)}</h5>
+
             <button style={{ borderStyle: "none" }} type="button" onClick={() => faveClick(item)}>
               <h5>
                 <FaHeart style={{ color: "green" }} />
@@ -45,7 +46,7 @@ function MealListByCategory({ name }) {
             </Link>
             <a
               href="#"
-              onClick={() => handleClick(item.strMeal)}
+              onClick={() => handleClick(item)}
               className="btn btn-primary"
             >
               Order
@@ -57,13 +58,23 @@ function MealListByCategory({ name }) {
   );
 }
 
-function handleClick(data) {
-  alert("Meal added to your shopping cart!");
-  fetch(`http://localhost:8080/api/v2/cart/${data}`, {
-    method: "PUT",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(data),
-  }).then((response) => {
+function handleClick(mealToAddToCart) {
+  // alert("Meal added to your shopping cart!");
+  const username = window.sessionStorage.getItem("User");
+  const image = mealToAddToCart.strMealThumb.replace(
+    "https://www.themealdb.com/images/media/meals/",
+    ""
+  );
+  fetch(
+    `http://localhost:8080/api/v2/cart/${username}/meal/${mealToAddToCart.strMeal}/tocart/${image}`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(mealToAddToCart),
+    }
+  ).then((response) => {
     console.log(response);
   });
 }
