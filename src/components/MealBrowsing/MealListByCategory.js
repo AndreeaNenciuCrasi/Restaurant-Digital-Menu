@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import { FontAwesome } from "react-icons/fa";
 import { FaHeart } from "react-icons/fa";
-import { Button, Modal } from "react-bootstrap";
+import { Modal } from "react-bootstrap";
 import "./FoodCategories.css";
 
 function MealListByCategory({ name }) {
@@ -20,14 +19,6 @@ function MealListByCategory({ name }) {
         `https://www.themealdb.com/api/json/v1/1/filter.php?c=${name}`
       );
       setFoodListCategories(response.data.meals);
-    
-
-    
-      // const responseFavorites = await axios.get(
-      //   `http://localhost:8080/api/v2/user/${username}/favorites`
-      // );
-      // setFavoriteMeals(responseFavorites.data);
-      // console.log(responseFavorites.data)
     }
 
     getData();
@@ -35,31 +26,16 @@ function MealListByCategory({ name }) {
 
 
   const handleClose = () => { 
-    setShow(false); }
-
-  // const checkFavorites = (newFave) => {
-  //   console.log(favoriteMeals)
-  //   for (let item of favoriteMeals) {
-  //     if (item.idMeal === newFave.idMeal) {
-  //       setAlreadyFave(1);
-  //     }
-  //   }
-  // }  
+    setShow(false); } 
 
   async function getData() {
     const responseFavorites = await axios.get(
-      `http://localhost:8080/api/v2/user/${username}/favorites`
+      `http://localhost:8080/yellowrestaurant/api/v1/user/${username}/favorites`
     );
     setFavoriteMeals(responseFavorites.data);
   }
 
   const faveClick = (newFavoriteMeal) => {
-    // async function getData() {
-    //   const responseFavorites = await axios.get(
-    //     `http://localhost:8080/api/v2/user/${username}/favorites`
-    //   );
-    //   setFavoriteMeals(responseFavorites.data);
-    // }
 
     getData();
 
@@ -73,7 +49,7 @@ function MealListByCategory({ name }) {
     if (alreadyFave==false) {
       setShow(true);
       fetch(
-        `http://localhost:8080/api/v2/user/${username}/favorites/${newFavoriteMeal.idMeal}`,
+        `http://localhost:8080/yellowrestaurant/api/v1/user/${username}/favorites/${newFavoriteMeal.idMeal}`,
         {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
@@ -103,13 +79,11 @@ function MealListByCategory({ name }) {
           />
           <div className="card-body">
             <h5 className="card-title">{item.strMeal.substring(0, 20)}</h5>
-            {/* {favoriteMeals.map((it) => ( */}
             <button style={{ borderStyle: "none" , backgroundColor: "cyan"}} type="button" onClick={() => faveClick(item)}>
               <h5>
                 <FaHeart style={{ color: "white" }} />
               </h5>
             </button>{" "}
-            {/* ))} */}
             <Link to={`/food-details/${item.idMeal}`}>
               <button type="button" value="submit" className="btn btn-info">
                 Info
@@ -145,7 +119,7 @@ function handleClick(mealToAddToCart) {
     ""
   );
   fetch(
-    `http://localhost:8080/api/v2/cart/${username}/meal/${mealToAddToCart.strMeal}/tocart/${image}`,
+    `http://localhost:8080/yellowrestaurant/api/v1/cart/${username}/meal/${mealToAddToCart.strMeal}/tocart/${image}`,
     {
       method: "POST",
       headers: {

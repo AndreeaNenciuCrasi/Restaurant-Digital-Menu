@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
-import { Card, Button } from "react-bootstrap";
-import "./FoodCategories.css";
+import { Card } from "react-bootstrap";
+import "../MealBrowsing/FoodCategories.css";
 
 function ShoppingCart() {
   const [cartId, setCartId] = useState(0);
@@ -12,12 +11,12 @@ function ShoppingCart() {
   useEffect(() => {
     async function getData() {
       const cartResponse = await axios.get(
-        `http://localhost:8080/api/v2/cart/view/${userName}`
+        `http://localhost:8080/yellowrestaurant/api/v1/cart/view/${userName}`
       );
       setCartId(cartResponse.data);
       console.log(cartResponse.data + "cart id");
       const mealResponse = await axios.get(
-        `http://localhost:8080/api/v2/cart/mealsInCart/${cartResponse.data}`
+        `http://localhost:8080/yellowrestaurant/api/v1/cart/mealsInCart/${cartResponse.data}`
       );
       console.log(mealResponse.data);
       setListOfMeals(mealResponse.data);
@@ -36,7 +35,7 @@ function ShoppingCart() {
               <Card.Title>{item.name}</Card.Title>
               <Card.Text>
                 {item.price}$
-        </Card.Text>
+            </Card.Text>
             </Card.Body>
           </Card>
         </div>

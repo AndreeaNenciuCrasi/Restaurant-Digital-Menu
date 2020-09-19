@@ -22,7 +22,7 @@ export default function UserProfile() {
     useEffect(() => {
         async function getData() {
           const response = await axios.get(
-            `http://localhost:8080/api/v2/user/view/${userName}`
+            `http://localhost:8080/yellowrestaurant/api/v1/user/view/${userName}`
           );
           setUser(response.data);
           console.log(response.data)
@@ -33,7 +33,7 @@ export default function UserProfile() {
     
     const onSubmit = (data) => {
         console.log(data);
-        fetch(` http://localhost:8080/api/v2/user/${userName}/edit`, {
+        fetch(` http://localhost:8080/yellowrestaurant/api/v1/user/${userName}/edit`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(data)

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Redirect } from "react-router";
 import { Button, Modal } from "react-bootstrap";
-import "./FoodCategories.css"; 
+import "../MealBrowsing/FoodCategories.css"; 
 
 export default function UserSignUp() {
   const { register, handleSubmit, errors } = useForm();
@@ -10,7 +10,7 @@ export default function UserSignUp() {
   const [show, setShow] = useState(false);
 
   const onSubmit = (data) => {
-    fetch(" http://localhost:8080/api/v2/user", {
+    fetch(" http://localhost:8080/yellowrestaurant/api/v1/user", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),

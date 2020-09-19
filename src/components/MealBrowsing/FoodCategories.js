@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import "./FoodCategories.css";
-import { ThemeContext } from "../contexts/ThemeContext";
+import { ThemeContext } from "../../contexts/ThemeContext";
 
 function FoodCategories() {
   const { isDarkMode, toggleTheme } = useContext(ThemeContext);
