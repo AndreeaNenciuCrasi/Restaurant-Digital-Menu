@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Redirect } from "react-router";
 import { Button, Modal } from "react-bootstrap";
-import "./FoodCategories.css"; 
+import "../MealBrowsing/FoodCategories.css"; 
 
 export default function UserSignUp() {
   const { register, handleSubmit, errors } = useForm();

@@ -3,21 +3,21 @@ import React from "react";
 import "./App.css";
 import Footer from "./components/Footer";
 import MenuBar from "./components/Navbar/Navbar";
-import FoodCategories from "./components/FoodCategories";
+import FoodCategories from "./components/MealBrowsing/FoodCategories";
 import { Switch, Route, Redirect } from "react-router-dom";
-import SurpriseMeal from "./components/SurpriseMeal";
-import MealListByCategory from "./components/MealListByCategory";
-import SearchResults from "./components/SearchResults";
-import FoodDetails from "./components/FoodDetails";
+import SurpriseMeal from "./components/MealBrowsing/SurpriseMeal";
+import MealListByCategory from "./components/MealBrowsing/MealListByCategory";
+import SearchResults from "./components/MealBrowsing/SearchResults";
+import FoodDetails from "./components/MealBrowsing/FoodDetails";
 import PageContent from "./PageContent";
 import { ThemeProvider } from "./contexts/ThemeContext";
-import AllMeals from "./components/AllMeals";
-import UserSignUp from "./components/UserSignUp";
-import UserLogin from "./components/UserLogin";
-import UserLogout from "./components/UserLogout";
-import UserProfile from "./components/UserProfile";
-import ShoppingCart from "./components/ShoppingCart";
-import FavoriteMeals from "./components/FavoriteMeals";
+import AllMeals from "./components/MealBrowsing/AllMeals";
+import UserSignUp from "./components/User/UserSignUp";
+import UserLogin from "./components/User/UserLogin";
+import UserLogout from "./components/User/UserLogout";
+import UserProfile from "./components/User/UserProfile";
+import ShoppingCart from "./components/ShoppingCart/ShoppingCart";
+import FavoriteMeals from "./components/FavoriteMeal/FavoriteMeals";
 
 function App() {
   return (

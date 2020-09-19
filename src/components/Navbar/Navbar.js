@@ -41,7 +41,6 @@ export default function MenuBar() {
         {userIsLogin ? null : <Nav.Link href="/login">Login</Nav.Link>}
         {userIsLogin ? <Nav.Link href="/user-profile">User Profile</Nav.Link> : null}
         {userIsLogin ? <Nav.Link href="/logout">Logout</Nav.Link> : null}
-        {/* <Nav.Link href="/logout">{userIsLogin ? "Logout" : null}</Nav.Link> */}
         <Nav.Link href="#">
           {userIsLogin
             ? `Logged in as ${window.sessionStorage.getItem("User")}`

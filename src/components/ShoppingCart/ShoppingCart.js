@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
-import { Card, Button } from "react-bootstrap";
-import "./FoodCategories.css";
+import { Card } from "react-bootstrap";
+import "../MealBrowsing/FoodCategories.css";
 
 function ShoppingCart() {
   const [cartId, setCartId] = useState(0);
@@ -36,7 +35,7 @@ function ShoppingCart() {
               <Card.Title>{item.name}</Card.Title>
               <Card.Text>
                 {item.price}$
-        </Card.Text>
+            </Card.Text>
             </Card.Body>
           </Card>
         </div>
