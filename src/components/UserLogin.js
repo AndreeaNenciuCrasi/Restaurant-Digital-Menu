@@ -93,7 +93,7 @@ export default function UserLogin() {
 }
 
 async function creatCart(data) {
-  fetch("http://localhost:8080/api/v2/cart", {
+  fetch("http://localhost:8080/yellowrestaurant/api/v1/cart", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(data),
@@ -103,7 +103,7 @@ async function creatCart(data) {
 }
 
 async function loginUser(data) {
-  let responseLogin = await fetch("http://localhost:8080/api/v2/user/login", {
+  let responseLogin = await fetch("http://localhost:8080/yellowrestaurant/api/v1/user/login", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(data),

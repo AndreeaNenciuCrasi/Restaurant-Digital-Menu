@@ -10,7 +10,7 @@ export default function FavoriteMeals() {
   useEffect(() => {
     async function getData() {
       const response = await axios.get(
-        `http://localhost:8080/api/v2/user/${username}/favorites`
+        `http://localhost:8080/yellowrestaurant/api/v1/user/${username}/favorites`
       );
       setFavoriteMeals(response.data);
       console.log(response.data);
@@ -56,7 +56,7 @@ function handleClick(mealToAddToCart) {
     ""
   );
   fetch(
-    `http://localhost:8080/api/v2/cart/${username}/meal/${mealToAddToCart.name}/tocart/${image}`,
+    `http://localhost:8080/yellowrestaurant/api/v1/cart/${username}/meal/${mealToAddToCart.name}/tocart/${image}`,
     {
       method: "POST",
       headers: {
