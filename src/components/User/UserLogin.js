@@ -18,8 +18,8 @@ export default function UserLogin() {
     promiseA.then(function (result) {
       if (result) {
         setUserLogin(true);
-        window.sessionStorage.setItem("User", data.userName);
-        creatCart(data.userName);
+        // window.sessionStorage.setItem("User", data.userName);
+        // creatCart(data.userName);
         setModalMessage("You are logged in!\nBon Appetit !")
         handleShow();
       } else {
@@ -29,6 +29,7 @@ export default function UserLogin() {
       }
     });
   };
+  
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -64,8 +65,8 @@ export default function UserLogin() {
           <h5 style={{ color: "white" }}>Login</h5>
           <div className="form-group">
             <input
-              name="userName"
-              placeholder="Username"
+              name="username"
+              placeholder="username"
               ref={register}
               type="text"
               class="form-control"
@@ -93,9 +94,10 @@ export default function UserLogin() {
 }
 
 async function creatCart(data) {
+  const userToken = window.sessionStorage.getItem("token");
   fetch("http://localhost:8080/yellowrestaurant/api/v1/cart", {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
+    headers: { "Content-Type": "application/json", "Authorization":`Bearer ${userToken}` },
     body: JSON.stringify(data),
   }).then((response) => {
     console.log(response);
@@ -103,10 +105,17 @@ async function creatCart(data) {
 }
 
 async function loginUser(data) {
-  let responseLogin = await fetch("http://localhost:8080/yellowrestaurant/api/v1/user/login", {
+  let responseLogin = await fetch("http://localhost:8080/auth/login", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(data),
   }).then((response) => response.json());
+  
+  //Not ethical correct
+  window.sessionStorage.setItem("User", responseLogin.username);
+  window.sessionStorage.setItem("token", responseLogin.token);
+  // creatCart(responseLogin.username);
+  console.log(responseLogin.token);
+
   return responseLogin;
 }

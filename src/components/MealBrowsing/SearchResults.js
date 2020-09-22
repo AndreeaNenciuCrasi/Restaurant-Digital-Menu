@@ -48,16 +48,17 @@ function SearchResults({ name }) {
 function handleClick(mealToAddToCart) {
   // alert("Meal added to your shopping cart!");
   const username = window.sessionStorage.getItem("User");
+  const userToken = window.sessionStorage.getItem("token")
   const image = mealToAddToCart.strMealThumb.replace(
     "https://www.themealdb.com/images/media/meals/",
     ""
   );
   fetch(
-    `http://localhost:8080/api/v2/cart/${username}/meal/${mealToAddToCart.strMeal}/tocart/${image}`,
+    `http://localhost:8080/yellowrestaurant/api/v1/cart/${username}/meal/${mealToAddToCart.strMeal}/tocart/${image}`,
     {
       method: "POST",
       headers: {
-        "Content-Type": "application/json",
+        "Content-Type": "application/json","Authoriation":`Bearer ${userToken}`
       },
       body: JSON.stringify(mealToAddToCart),
     }
