@@ -18,6 +18,7 @@ import UserLogout from "./components/User/UserLogout";
 import UserProfile from "./components/User/UserProfile";
 import ShoppingCart from "./components/ShoppingCart/ShoppingCart";
 import FavoriteMeals from "./components/FavoriteMeal/FavoriteMeals";
+import OrderDetails from "./components/OrderDetails/OrderDetails";
 
 function App() {
   return (
@@ -50,7 +51,12 @@ function App() {
               <Route path="/logout" exact component={UserLogout} />
               <Route path="/user-profile" exact component={UserProfile} />
               <Route path="/cart" exact component={ShoppingCart} />
-              <Route path="/user-profile/favorites" exact component={FavoriteMeals} />
+              <Route path="/order-details" exact component={OrderDetails} />
+              <Route
+                path="/user-profile/favorites"
+                exact
+                component={FavoriteMeals}
+              />
               <Redirect to="/" />
             </Switch>
           </div>

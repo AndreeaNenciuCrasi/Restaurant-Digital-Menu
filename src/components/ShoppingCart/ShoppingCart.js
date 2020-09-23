@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Card } from "react-bootstrap";
 import "../MealBrowsing/FoodCategories.css";
+import OrderDetails from "../OrderDetails/OrderDetails";
+import { Link } from "react-router-dom";
 
 function ShoppingCart() {
   const [cartId, setCartId] = useState(0);
@@ -30,31 +32,31 @@ function ShoppingCart() {
   }, []);
 
   return (
-    <div className="container FoodCategoriesContainer">
-      <h1 style={{color : "white"}}>Cart</h1>
-      {listOfMeals.map((item) =>
+    <div
+      className="container FoodCategoriesContainer"
+      style={{ marginBottom: "40rem" }}
+    >
+      <h1 style={{ color: "white" }}>Cart</h1>
+      {listOfMeals.map((item) => (
         <div className="card FoodCategoriesCard">
-          <Card style={{ width: '18rem' }}>
+          <Card style={{ width: "18rem" }}>
             <Card.Img className="cardImg" variant="top" src={item.image} />
             <Card.Body>
               <Card.Title>{item.name}</Card.Title>
-              <Card.Text>
-                {item.price}$
-            </Card.Text>
+              <Card.Text>{item.price}$</Card.Text>
             </Card.Body>
           </Card>
         </div>
-
-      )
-      }
+      ))}
       <div>
         <p style={{ fontSize: "50px", color: "yellow" }}>
           TOTAL PRICE: {5 * listOfMeals.length}$
         </p>
-
+        <Link className="btn btn-primary" to={`/order-details`}>
+          Checkout
+        </Link>
       </div>
     </div>
-
   );
 }
 
