@@ -11,6 +11,7 @@ function MealListByCategory({ name }) {
   const [favoriteMeals, setFavoriteMeals] = useState([]);
   
   const username = window.sessionStorage.getItem("User");
+  const userToken = window.sessionStorage.getItem("token");
 
   useEffect(() => {
 
@@ -31,7 +32,7 @@ function MealListByCategory({ name }) {
   async function getData() {
     const responseFavorites = await axios.get(
       `http://localhost:8080/yellowrestaurant/api/v1/user/${username}/favorites`
-    );
+    ,{headers:{'Authorization':`Bearer ${userToken}`}});
     setFavoriteMeals(responseFavorites.data);
   }
 
@@ -52,7 +53,7 @@ function MealListByCategory({ name }) {
         `http://localhost:8080/yellowrestaurant/api/v1/user/${username}/favorites/${newFavoriteMeal.idMeal}`,
         {
           method: "PUT",
-          headers: { "Content-Type": "application/json" },
+          headers: { "Content-Type": "application/json", "Authorization" : `Bearer ${userToken}` },
           body: JSON.stringify(newFavoriteMeal),
         }
       ).then((response) => {
@@ -114,6 +115,7 @@ function MealListByCategory({ name }) {
 function handleClick(mealToAddToCart) {
   // alert("Meal added to your shopping cart!");
   const username = window.sessionStorage.getItem("User");
+  const userToken = window.sessionStorage.getItem("token");
   const image = mealToAddToCart.strMealThumb.replace(
     "https://www.themealdb.com/images/media/meals/",
     ""
@@ -123,7 +125,7 @@ function handleClick(mealToAddToCart) {
     {
       method: "POST",
       headers: {
-        "Content-Type": "application/json",
+        "Content-Type": "application/json","Authorization":`Bearer ${userToken}`
       },
       body: JSON.stringify(mealToAddToCart),
     }

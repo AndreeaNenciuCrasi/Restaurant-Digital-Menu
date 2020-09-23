@@ -1,31 +1,28 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import { Redirect } from "react-router";
+import { Redirect, useHistory } from "react-router";
 import { Button, Modal } from "react-bootstrap";
 import "./UserLogin.css";
-
 
 export default function UserLogin() {
   const { register, handleSubmit } = useForm();
   const [userLogin, setUserLogin] = useState(false);
   // Pop-up Alert
   const [show, setShow] = useState(false);
-  const [modalMessage, setModalMessage] = useState("")
+  const [modalMessage, setModalMessage] = useState("");
 
+  //Redirect
+  const history = useHistory();
 
   const onSubmit = (data) => {
     let promiseA = loginUser(data);
     promiseA.then(function (result) {
-      if (result) {
+      if (result.token) {
         setUserLogin(true);
-        window.sessionStorage.setItem("User", data.userName);
-        creatCart(data.userName);
-        setModalMessage("You are logged in!\nBon Appetit !")
-        handleShow();
+        history.push("/");
       } else {
         setModalMessage("Username or Password is incorrect");
         handleShow();
-
       }
     });
   };
@@ -45,7 +42,7 @@ export default function UserLogin() {
             <Modal.Footer>
               <Button variant="secondary" onClick={handleClose}>
                 Close
-          </Button>
+              </Button>
             </Modal.Footer>
           </Modal>
         </>
@@ -64,8 +61,8 @@ export default function UserLogin() {
           <h5 style={{ color: "white" }}>Login</h5>
           <div className="form-group">
             <input
-              name="userName"
-              placeholder="Username"
+              name="username"
+              placeholder="username"
               ref={register}
               type="text"
               class="form-control"
@@ -87,15 +84,18 @@ export default function UserLogin() {
           <input type="submit" className="btn btn-primary" />
         </form>
       </div>
-
     </div>
   );
 }
 
 async function creatCart(data) {
+  const userToken = window.sessionStorage.getItem("token");
   fetch("http://localhost:8080/yellowrestaurant/api/v1/cart", {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${userToken}`,
+    },
     body: JSON.stringify(data),
   }).then((response) => {
     console.log(response);
@@ -103,10 +103,15 @@ async function creatCart(data) {
 }
 
 async function loginUser(data) {
-  let responseLogin = await fetch("http://localhost:8080/yellowrestaurant/api/v1/user/login", {
+  let responseLogin = await fetch("http://localhost:8080/auth/login", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(data),
   }).then((response) => response.json());
+
+  //Cange to httponly cookie
+  window.sessionStorage.setItem("User", responseLogin.username);
+  window.sessionStorage.setItem("token", responseLogin.token);
+  // creatCart(responseLogin.username);
   return responseLogin;
 }
