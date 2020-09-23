@@ -14,32 +14,33 @@ function AllMeals() {
       console.log(response.data.meals);
     }
     getData();
-    }, []);
+  }, []);
 
-    return (
-      <div>
-        <h3 style = {{ "color" : "white"}}>Only today any meal for 5$ per portion!</h3>
-        <div className="container FoodCategoriesContainer">
-      {allMeals.map((item) => (
-        <div
-          className="card FoodCategoriesCard"
-          style={{ width: "18rem", display: "inline-block" }}
-        >
-          <img
-            className="card-img-top cardImg"
-            src={item.strMealThumb}
-            alt="Card image cap"
-          />
-          <div className="card-body">
-            <h5 className="card-title">{item.strMeal}</h5>
+  return (
+    <div>
+      <h3 style={{ color: "white" }}>
+        Only today any meal for 5$ per portion!
+      </h3>
+      <div className="container FoodCategoriesContainer">
+        {allMeals.map((item, index) => (
+          <div
+            key={index}
+            className="card FoodCategoriesCard"
+            style={{ width: "18rem", display: "inline-block" }}
+          >
+            <img
+              className="card-img-top cardImg"
+              src={item.strMealThumb}
+              alt="Card image cap"
+            />
+            <div className="card-body">
+              <h5 className="card-title">{item.strMeal}</h5>
+            </div>
           </div>
-        </div>
-      ))}
-    </div>
+        ))}
+      </div>
     </div>
   );
 }
 
-
-   
 export default AllMeals;
