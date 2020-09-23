@@ -14,17 +14,23 @@ function ShoppingCart() {
   useEffect(() => {
     async function getData() {
       const cartResponse = await axios.get(
-        `http://localhost:8080/yellowrestaurant/api/v1/cart/view/${userName}`
-      , {headers:{
-        'Authorization':`Bearer ${userToken}`
-    }});
+        `http://localhost:8080/yellowrestaurant/api/v1/cart/view/${userName}`,
+        {
+          headers: {
+            Authorization: `Bearer ${userToken}`,
+          },
+        }
+      );
       setCartId(cartResponse.data);
       console.log(cartResponse.data + "cart id");
       const mealResponse = await axios.get(
-        `http://localhost:8080/yellowrestaurant/api/v1/cart/mealsInCart/${cartResponse.data}`
-      ,{headers:{
-        'Authorization':`Bearer ${userToken}`
-    }});
+        `http://localhost:8080/yellowrestaurant/api/v1/cart/mealsInCart/${cartResponse.data}`,
+        {
+          headers: {
+            Authorization: `Bearer ${userToken}`,
+          },
+        }
+      );
       console.log(mealResponse.data);
       setListOfMeals(mealResponse.data);
     }
@@ -52,8 +58,14 @@ function ShoppingCart() {
         <p style={{ fontSize: "50px", color: "yellow" }}>
           TOTAL PRICE: {5 * listOfMeals.length}$
         </p>
-        <Link className="btn btn-primary" to={`/order-details`}>
+        {/* <Link className="btn btn-primary" to={`/order-details/${cartId}`}>
           Checkout
+        </Link> */}
+
+        <Link to={`/order-details/${cartId}`}>
+          <button type="button" value="submit" className="btn btn-info">
+            Checkout
+          </button>{" "}
         </Link>
       </div>
     </div>

@@ -51,7 +51,10 @@ function App() {
               <Route path="/logout" exact component={UserLogout} />
               <Route path="/user-profile" exact component={UserProfile} />
               <Route path="/cart" exact component={ShoppingCart} />
-              <Route path="/order-details" exact component={OrderDetails} />
+              <Route
+                path="/order-details/:name"
+                render={(e) => <OrderDetails name={e.match.params.name} />}
+              />
               <Route
                 path="/user-profile/favorites"
                 exact

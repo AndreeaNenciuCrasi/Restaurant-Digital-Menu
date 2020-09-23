@@ -125,6 +125,7 @@ export default function UserProfile() {
                       placeholder={user.emailAddress}
                       ref={register}
                       name="emailAddress"
+                      defaultValue={user.emailAddress}
                     />
                   </div>
                   <div className="col-md-6">
