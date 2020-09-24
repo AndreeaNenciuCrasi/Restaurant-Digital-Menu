@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Redirect, useHistory } from "react-router";
 import { Button, Modal } from "react-bootstrap";
+
 import "./UserLogin.css";
 
 export default function UserLogin() {
@@ -17,7 +18,9 @@ export default function UserLogin() {
   const onSubmit = (data) => {
     let promiseA = loginUser(data);
     promiseA.then(function (result) {
-      if (result.token) {
+      if (result.username) {
+        window.sessionStorage.setItem("User", result.username);
+        // creatCart(result.username);
         setUserLogin(true);
         history.push("/");
       } else {
@@ -88,19 +91,19 @@ export default function UserLogin() {
   );
 }
 
-async function creatCart(data) {
-  const userToken = window.sessionStorage.getItem("token");
-  fetch("http://localhost:8080/yellowrestaurant/api/v1/cart", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${userToken}`,
-    },
-    body: JSON.stringify(data),
-  }).then((response) => {
-    console.log(response);
-  });
-}
+// async function creatCart(data) {
+//   const userToken = window.sessionStorage.getItem("token");
+//   fetch("http://localhost:8080/yellowrestaurant/api/v1/cart", {
+//     method: "POST",
+//     headers: {
+//       "Content-Type": "application/json",
+//       Authorization: `Bearer ${userToken}`,
+//     },
+//     body: JSON.stringify(data),
+//   }).then((response) => {
+//     console.log(response);
+//   });
+// }
 
 async function loginUser(data) {
   let responseLogin = await fetch("http://localhost:8080/auth/login", {
@@ -108,10 +111,5 @@ async function loginUser(data) {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(data),
   }).then((response) => response.json());
-
-  //Cange to httponly cookie
-  window.sessionStorage.setItem("User", responseLogin.username);
-  window.sessionStorage.setItem("token", responseLogin.token);
-  // creatCart(responseLogin.username);
   return responseLogin;
 }

@@ -11,9 +11,7 @@ export default function UserProfile() {
   const { register, handleSubmit } = useForm();
 
   const userName = window.sessionStorage.getItem("User");
-  const userToken = window.sessionStorage.getItem("token");
   console.log(userName);
-  console.log(userToken);
 
   const [user, setUser] = useState([]);
   const [toHome, setToHome] = useState();
@@ -22,18 +20,13 @@ export default function UserProfile() {
   useEffect(() => {
     async function getData() {
       const response = await axios.get(
-        `http://localhost:8080/yellowrestaurant/api/v1/user/view/${userName}`,
-        {
-          headers: {
-            Authorization: `Bearer ${userToken}`,
-          },
-        }
+        `http://localhost:8080/yellowrestaurant/api/v1/user/view/${userName}`
       );
       setUser(response.data);
       console.log(response.data);
     }
     getData();
-  }, [userName, userToken]);
+  }, [userName]);
 
   const onSubmit = (data) => {
     console.log(data);
@@ -43,7 +36,6 @@ export default function UserProfile() {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${userToken}`,
         },
         body: JSON.stringify(data),
       }

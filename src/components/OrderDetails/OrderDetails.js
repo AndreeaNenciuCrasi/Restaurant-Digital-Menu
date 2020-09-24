@@ -9,7 +9,6 @@ function OrderDetails({ name }) {
   const [user, setUser] = useState([]);
   const [listOfMeals, setListOfMeals] = useState([]);
   const userName = window.sessionStorage.getItem("User");
-  const userToken = window.sessionStorage.getItem("token");
 
   useEffect(() => {
     async function getData() {
@@ -24,34 +23,24 @@ function OrderDetails({ name }) {
       //   setUser(getUser);
       //   console.log(getUser + " user");
       const cartResponse = await axios.get(
-        `http://localhost:8080/yellowrestaurant/api/v1/cart/mealsInCart/${name}`,
-        {
-          headers: {
-            Authorization: `Bearer ${userToken}`,
-          },
-        }
+        `http://localhost:8080/yellowrestaurant/api/v1/cart/mealsInCart/${name}`
       );
       console.log(cartResponse.data);
       setListOfMeals(cartResponse.data);
     }
     getData();
-  }, []);
+  }, [name]);
 
   useEffect(() => {
     async function getData() {
       const response = await axios.get(
-        `http://localhost:8080/yellowrestaurant/api/v1/user/view/${userName}`,
-        {
-          headers: {
-            Authorization: `Bearer ${userToken}`,
-          },
-        }
+        `http://localhost:8080/yellowrestaurant/api/v1/user/view/${userName}`
       );
       setUser(response.data);
       console.log(response.data);
     }
     getData();
-  }, [userName, userToken]);
+  }, [userName]);
   return (
     <div
       className="container FoodCategoriesContainer"

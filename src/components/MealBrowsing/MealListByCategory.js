@@ -9,12 +9,10 @@ function MealListByCategory({ name }) {
   const [foodListCategories, setFoodListCategories] = useState([]);
   const [show, setShow] = useState(false);
   const [favoriteMeals, setFavoriteMeals] = useState([]);
-  
+
   const username = window.sessionStorage.getItem("User");
-  const userToken = window.sessionStorage.getItem("token");
 
   useEffect(() => {
-
     async function getData() {
       const response = await axios.get(
         `https://www.themealdb.com/api/json/v1/1/filter.php?c=${name}`
@@ -23,47 +21,45 @@ function MealListByCategory({ name }) {
     }
 
     getData();
-    }, [name]);
+  }, [name]);
 
-
-  const handleClose = () => { 
-    setShow(false); } 
+  const handleClose = () => {
+    setShow(false);
+  };
 
   async function getData() {
     const responseFavorites = await axios.get(
       `http://localhost:8080/yellowrestaurant/api/v1/user/${username}/favorites`
-    ,{headers:{'Authorization':`Bearer ${userToken}`}});
+    );
     setFavoriteMeals(responseFavorites.data);
   }
 
   const faveClick = (newFavoriteMeal) => {
-
     getData();
 
-    let alreadyFave=false;
+    let alreadyFave = false;
     for (let item of favoriteMeals) {
       if (item.idMeal === newFavoriteMeal.idMeal) {
-        alreadyFave=true;
+        alreadyFave = true;
       }
     }
 
-    if (alreadyFave==false) {
+    if (alreadyFave == false) {
       setShow(true);
       fetch(
         `http://localhost:8080/yellowrestaurant/api/v1/user/${username}/favorites/${newFavoriteMeal.idMeal}`,
         {
           method: "PUT",
-          headers: { "Content-Type": "application/json", "Authorization" : `Bearer ${userToken}` },
+          headers: { "Content-Type": "application/json" },
           body: JSON.stringify(newFavoriteMeal),
         }
       ).then((response) => {
         console.log(response);
       });
-
     } else {
       alert("Meal already in favorites!");
     }
-  }
+  };
 
   return (
     <div className="container FoodCategoriesContainer">
@@ -80,7 +76,11 @@ function MealListByCategory({ name }) {
           />
           <div className="card-body">
             <h5 className="card-title">{item.strMeal.substring(0, 20)}</h5>
-            <button style={{ borderStyle: "none" , backgroundColor: "cyan"}} type="button" onClick={() => faveClick(item)}>
+            <button
+              style={{ borderStyle: "none", backgroundColor: "cyan" }}
+              type="button"
+              onClick={() => faveClick(item)}
+            >
               <h5>
                 <FaHeart style={{ color: "white" }} />
               </h5>
@@ -115,7 +115,6 @@ function MealListByCategory({ name }) {
 function handleClick(mealToAddToCart) {
   // alert("Meal added to your shopping cart!");
   const username = window.sessionStorage.getItem("User");
-  const userToken = window.sessionStorage.getItem("token");
   const image = mealToAddToCart.strMealThumb.replace(
     "https://www.themealdb.com/images/media/meals/",
     ""
@@ -125,7 +124,7 @@ function handleClick(mealToAddToCart) {
     {
       method: "POST",
       headers: {
-        "Content-Type": "application/json","Authorization":`Bearer ${userToken}`
+        "Content-Type": "application/json",
       },
       body: JSON.stringify(mealToAddToCart),
     }
