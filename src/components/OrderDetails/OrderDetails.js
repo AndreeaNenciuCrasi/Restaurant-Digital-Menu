@@ -13,16 +13,6 @@ function OrderDetails({ name }) {
 
   useEffect(() => {
     async function getData() {
-      //   const getUser = await axios.get(
-      //     `http://localhost:8080/yellowrestaurant/api/v1/user/view/${userName}`,
-      //     {
-      //       headers: {
-      //         Authorization: `Bearer ${userToken}`,
-      //       },
-      //     }
-      //   );
-      //   setUser(getUser);
-      //   console.log(getUser + " user");
       const cartResponse = await axios.get(
         `http://localhost:8080/yellowrestaurant/api/v1/cart/mealsInCart/${name}`,
         {
@@ -52,6 +42,35 @@ function OrderDetails({ name }) {
     }
     getData();
   }, [userName, userToken]);
+
+  const getListOfMeals = (mapWithMeals) => {
+    console.log(mapWithMeals);
+    let content = [];
+    let meal = {};
+    for (let [mealJSON, quantity] of Object.entries(mapWithMeals)) {
+      meal = JSON.parse(mealJSON);
+      content.push(
+        <tr>
+          <td>{meal.name}</td>
+          <td>{quantity}</td>
+          <td>{meal.price * quantity} $</td>
+        </tr>
+      );
+    }
+
+    return content;
+  };
+
+  const getTotalPrice = (mapWithMeals) => {
+    let meal = {};
+    let sum = 0;
+    for (let [mealJSON, quantity] of Object.entries(mapWithMeals)) {
+      meal = JSON.parse(mealJSON);
+      sum += meal.price * quantity;
+    }
+    return sum;
+  };
+
   return (
     <div
       className="container FoodCategoriesContainer"
@@ -68,16 +87,10 @@ function OrderDetails({ name }) {
           </tr>
         </thead>
         <tbody>
-          {listOfMeals.map((item) => (
-            <tr>
-              <td>{item.name}</td>
-              <td>1</td>
-              <td>{item.price} $</td>
-            </tr>
-          ))}
+          {listOfMeals && getListOfMeals(listOfMeals)}
           <tr style={{ color: "yellow" }}>
             <td>TOTAL PRICE:</td>
-            <td colSpan="2">{5 * listOfMeals.length} $</td>
+            <td colSpan="2">{listOfMeals && getTotalPrice(listOfMeals)} $</td>
           </tr>
           <tr>
             <td>NAME</td>
