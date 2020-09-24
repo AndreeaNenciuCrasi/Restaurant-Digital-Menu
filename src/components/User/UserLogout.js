@@ -1,13 +1,23 @@
 import React from "react";
-import { Redirect } from "react-router";
+import axios from "axios";
+import { useHistory } from "react-router-dom";
 
-export default function UserLogout() {
-  sessionStorage.clear();
-  alert("You have been logged out!");
+function UserLogout() {
+  const history = useHistory();
+
+  let logoutResponse = handleLogout();
+  console.log(logoutResponse);
+  window.sessionStorage.clear();
+  history.push("/login");
 
   return (
     <div>
-      <Redirect to="/" />
+      <h1>Log out Page</h1>
     </div>
   );
 }
+async function handleLogout() {
+  await axios.get("http://localhost:8080/auth/logout");
+}
+
+export default UserLogout;
