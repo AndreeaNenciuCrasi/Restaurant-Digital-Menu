@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 
 function ShoppingCart() {
   const [cartId, setCartId] = useState(0);
-  const [listOfMeals, setListOfMeals] = useState([]);
+  const [listOfMeals, setListOfMeals] = useState({});
   const userName = window.sessionStorage.getItem("User");
 
   useEffect(() => {
@@ -26,30 +26,50 @@ function ShoppingCart() {
     getData();
   }, [userName]);
 
+  const getListOfMeals = (mapWithMeals) => {
+    console.log(mapWithMeals);
+    let content = [];
+    let meal = {};
+    for (let [mealJSON, quantity] of Object.entries(mapWithMeals)) {
+      meal = JSON.parse(mealJSON);
+      content.push(
+        <div className="card FoodCategoriesCard">
+          <Card style={{ width: "18rem" }}>
+            <Card.Img className="cardImg" variant="top" src={meal.image} />
+            <Card.Body>
+              <Card.Title>{meal.name}</Card.Title>
+              <Card.Text>{quantity}</Card.Text>
+              <Card.Text>{meal.price * quantity}$</Card.Text>
+            </Card.Body>
+          </Card>
+        </div>
+      );
+    }
+
+    return content;
+  };
+
+  const getTotalPrice = (mapWithMeals) => {
+    let meal = {};
+    let sum = 0;
+    for (let [mealJSON, quantity] of Object.entries(mapWithMeals)) {
+      meal = JSON.parse(mealJSON);
+      sum += meal.price * quantity;
+    }
+    return sum;
+  };
+
   return (
     <div
       className="container FoodCategoriesContainer"
       style={{ marginBottom: "40rem" }}
     >
       <h1 style={{ color: "white" }}>Cart</h1>
-      {listOfMeals.map((item) => (
-        <div className="card FoodCategoriesCard">
-          <Card style={{ width: "18rem" }}>
-            <Card.Img className="cardImg" variant="top" src={item.image} />
-            <Card.Body>
-              <Card.Title>{item.name}</Card.Title>
-              <Card.Text>{item.price}$</Card.Text>
-            </Card.Body>
-          </Card>
-        </div>
-      ))}
+      {listOfMeals && getListOfMeals(listOfMeals)}
       <div>
         <p style={{ fontSize: "50px", color: "yellow" }}>
-          TOTAL PRICE: {5 * listOfMeals.length}$
+          TOTAL PRICE: {listOfMeals && getTotalPrice(listOfMeals)}$
         </p>
-        {/* <Link className="btn btn-primary" to={`/order-details/${cartId}`}>
-          Checkout
-        </Link> */}
 
         <Link to={`/order-details/${cartId}`}>
           <button type="button" value="submit" className="btn btn-info">
