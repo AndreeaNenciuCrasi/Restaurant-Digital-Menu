@@ -31,7 +31,7 @@ export default function UserProfile() {
   const onSubmit = (data) => {
     console.log(data);
     fetch(
-      ` http://localhost:8080/yellowrestaurant/api/v1/user/${userName}/edit`,
+      `http://localhost:8080/yellowrestaurant/api/v1/user/${userName}/edit`,
       {
         method: "POST",
         headers: {
@@ -44,6 +44,13 @@ export default function UserProfile() {
         handleShow();
       }
     });
+  };
+
+  const handleDelete = () => {
+    fetch(`http://localhost:8080/yellowrestaurant/api/v1/user/`, {
+      method: "DELETE",
+      headers: { "Content-Type": "application/json" },
+    }).then((response) => console.log(response));
   };
 
   const handleClose = () => {
@@ -72,6 +79,12 @@ export default function UserProfile() {
                   Favorite meals
                 </button>
               </Link>
+              <br></br>
+              <div>
+                <button className="btn btn-danger" onClick={handleDelete}>
+                  Delete Account
+                </button>
+              </div>
             </div>
           </div>
           <div className="col-md-8">
