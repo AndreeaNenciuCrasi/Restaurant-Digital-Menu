@@ -20,7 +20,6 @@ export default function UserLogin() {
     promiseA.then(function (result) {
       if (result.username) {
         window.sessionStorage.setItem("User", result.username);
-        // creatCart(result.username);
         setUserLogin(true);
         history.push("/");
       } else {
@@ -90,20 +89,6 @@ export default function UserLogin() {
     </div>
   );
 }
-
-// async function creatCart(data) {
-//   const userToken = window.sessionStorage.getItem("token");
-//   fetch("http://localhost:8080/yellowrestaurant/api/v1/cart", {
-//     method: "POST",
-//     headers: {
-//       "Content-Type": "application/json",
-//       Authorization: `Bearer ${userToken}`,
-//     },
-//     body: JSON.stringify(data),
-//   }).then((response) => {
-//     console.log(response);
-//   });
-// }
 
 async function loginUser(data) {
   let responseLogin = await fetch("http://localhost:8080/auth/login", {
