@@ -9,6 +9,7 @@ function MealListByCategory({ name }) {
   const [foodListCategories, setFoodListCategories] = useState([]);
   const [show, setShow] = useState(false);
   const [favoriteMeals, setFavoriteMeals] = useState([]);
+  const [message, setMessage] = useState();
 
   const username = window.sessionStorage.getItem("User");
 
@@ -45,6 +46,7 @@ function MealListByCategory({ name }) {
     }
 
     if (alreadyFave == false) {
+      setMessage("Meal added to favorites :)");
       setShow(true);
       fetch(
         `http://localhost:8080/yellowrestaurant/api/v1/user/${username}/favorites/${newFavoriteMeal.idMeal}`,
@@ -57,7 +59,9 @@ function MealListByCategory({ name }) {
         console.log(response);
       });
     } else {
-      alert("Meal already in favorites!");
+      // alert("Meal already in favorites!");
+      setMessage("Meal already in favorites!");
+      setShow(true);
     }
   };
 
@@ -105,7 +109,8 @@ function MealListByCategory({ name }) {
           <Modal.Header closeButton onClick={handleClose}>
             <Modal.Title>Good choice!</Modal.Title>
           </Modal.Header>
-          <Modal.Body>Meal added to favorites :)</Modal.Body>
+          {/* <Modal.Body>Meal added to favorites :)</Modal.Body> */}
+          <Modal.Body>{message}</Modal.Body>
         </Modal>
       </>
     </div>

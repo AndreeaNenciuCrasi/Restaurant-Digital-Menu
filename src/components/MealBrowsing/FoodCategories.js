@@ -43,11 +43,19 @@ function FoodCategories() {
       {foodCategories.map((item, i) => (
         <div className="card FoodCategoriesCard" key={i}>
           <div className="cardImg">
+            {/* {item.strCategory==="Chicken" ? 
+            <img
+              className="card-img-top"
+              src="https://www.themealdb.com/images/media/meals/tytyxu1515363282.jpg"
+              alt={item.strCategory}
+              style={{ "height" : 223 }}
+            /> : */}
             <img
               className="card-img-top"
               src={item.strCategoryThumb}
               alt={item.strCategory}
             />
+          {/* } */}
           </div>
           <div className="card-body">
             <h5 className="card-title">{item.strCategory}</h5>
