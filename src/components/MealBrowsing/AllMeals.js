@@ -34,7 +34,7 @@ function AllMeals() {
               alt="Card image cap"
             />
             <div className="card-body">
-              <h5 className="card-title">{item.strMeal}</h5>
+              <h5 className="card-title">{item.strMeal.substring(0, 20)}</h5>
             </div>
           </div>
         ))}
