@@ -9,11 +9,15 @@ function OrderDetails({ name }) {
   const [user, setUser] = useState([]);
   const [listOfMeals, setListOfMeals] = useState([]);
   const userName = window.sessionStorage.getItem("User");
+  const token = window.sessionStorage.getItem("token");
 
   useEffect(() => {
     async function getData() {
       const cartResponse = await axios.get(
-        `http://localhost:8080/yellowrestaurant/api/v1/cart/mealsInCart/${name}`
+        `http://localhost:8080/yellowrestaurant/api/v1/cart/mealsInCart/${name}`,
+        {
+          headers: { "Authorization" : `Bearer ${token}` }
+        }
       );
       console.log(cartResponse.data);
       setListOfMeals(cartResponse.data);
@@ -24,7 +28,10 @@ function OrderDetails({ name }) {
   useEffect(() => {
     async function getData() {
       const response = await axios.get(
-        `http://localhost:8080/yellowrestaurant/api/v1/user/view/${userName}`
+        `http://localhost:8080/yellowrestaurant/api/v1/user/view/${userName}`,
+        {
+          headers: { "Authorization" : `Bearer ${token}` }
+        }
       );
       setUser(response.data);
       console.log(response.data);

@@ -9,16 +9,23 @@ function ShoppingCart() {
   const [cartId, setCartId] = useState(0);
   const [listOfMeals, setListOfMeals] = useState({});
   const userName = window.sessionStorage.getItem("User");
+  const token = window.sessionStorage.getItem("token");
 
   useEffect(() => {
     async function getData() {
       const cartResponse = await axios.get(
-        `http://localhost:8080/yellowrestaurant/api/v1/cart/view/${userName}`
+        `http://localhost:8080/yellowrestaurant/api/v1/cart/view/${userName}`,
+        { 
+          headers: {"Authorization" : `Bearer ${token}`}
+        }
       );
       setCartId(cartResponse.data);
       console.log(cartResponse.data + "cart id");
       const mealResponse = await axios.get(
-        `http://localhost:8080/yellowrestaurant/api/v1/cart/mealsInCart/${cartResponse.data}`
+        `http://localhost:8080/yellowrestaurant/api/v1/cart/mealsInCart/${cartResponse.data}`,
+        { 
+          headers: {"Authorization" : `Bearer ${token}`}
+        }
       );
       console.log(mealResponse.data);
       setListOfMeals(mealResponse.data);
