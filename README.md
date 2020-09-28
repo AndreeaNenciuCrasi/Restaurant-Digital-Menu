@@ -5,7 +5,7 @@ Screenshots
 
 # Screenshot
 
-![alt text](src/imges/Screenshot from 2020-09-28 12-24-59.png?raw=true)
+![alt text](src/imges/Screenshot from 2020-09-28 12-24-16.png?raw=true)
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
