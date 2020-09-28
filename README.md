@@ -1,9 +1,9 @@
 
 
 
-Screenshots
+# Food delivery application developed with React and Spring
 
-# Screenshot
+# Screenshots
 ![alt text](src/images/homePage.png?raw=true)
 ![alt text](src/images/theme.png?raw=true)
 ![alt text](src/images/mealsList.png?raw=true)
