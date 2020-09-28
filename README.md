@@ -4,8 +4,12 @@
 Screenshots
 
 # Screenshot
-
+![alt text](src/images/home page.png?raw=true)
 ![alt text](src/images/theme.png?raw=true)
+![alt text](src/images/meal list.png?raw=true)
+![alt text](src/images/surpise meal.png?raw=true)
+![alt text](src/images/cart.png?raw=true)
+![alt text](src/images/order details.png?raw=true)
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
