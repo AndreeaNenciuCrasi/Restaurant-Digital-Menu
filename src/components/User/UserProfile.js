@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import { FaUser } from "react-icons/fa";
@@ -18,6 +18,8 @@ export default function UserProfile() {
   const [user, setUser] = useState([]);
   const [toHome, setToHome] = useState();
   const [show, setShow] = useState(false);
+
+  const history = useHistory();
 
   useEffect(() => {
     async function getData() {
@@ -56,10 +58,23 @@ export default function UserProfile() {
   const handleDelete = () => {
     fetch(`http://localhost:8080/yellowrestaurant/api/v1/user/`, {
       method: "DELETE",
+
+//       headers: { "Content-Type": "application/json" },
+//     }).then((response) => {
+//       if (response.status === 200) {
+//         handleShow();
+//         history.push("/logout");
+//       }
+//     });
+
       headers: { "Content-Type": "application/json",
       "Authorization" : `Bearer ${token}` },
-    }).then((response) => console.log(response));
-  };
+    }).then((response) => {
+    if (response.status === 200) {
+         handleShow();
+         history.push("/logout");
+    }
+    });
 
   const handleClose = () => {
     setShow(false);

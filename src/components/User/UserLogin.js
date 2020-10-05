@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Redirect, useHistory } from "react-router";
 import { Button, Modal } from "react-bootstrap";
-
 import "./UserLogin.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEye } from "@fortawesome/free-solid-svg-icons";
 
 export default function UserLogin() {
   const { register, handleSubmit } = useForm();
@@ -12,8 +13,16 @@ export default function UserLogin() {
   const [show, setShow] = useState(false);
   const [modalMessage, setModalMessage] = useState("");
 
+  //Show Password
+  const eye = <FontAwesomeIcon icon={faEye} />;
+  const [passwordShown, setPasswordShown] = useState(false);
+
   //Redirect
   const history = useHistory();
+
+  const togglePasswordVisiblity = () => {
+    setPasswordShown(passwordShown ? false : true);
+  };
 
   const onSubmit = (data) => {
     let promiseA = loginUser(data);
@@ -66,7 +75,7 @@ export default function UserLogin() {
             <input
               name="username"
               placeholder="username"
-              ref={register}
+              ref={register({ required: "This is required." })}
               type="text"
               class="form-control"
               id="user-name"
@@ -75,14 +84,21 @@ export default function UserLogin() {
           </div>
           <div className="form-group">
             <input
-              type="password"
+              type={passwordShown ? "text" : "password"}
               name="password"
-              ref={register}
+              ref={register({ required: "This is required." })}
               placeholder="Password"
               class="form-control"
               id="password"
               required="required"
             />
+            <br></br>
+            <h6 style={{ color: "white" }}>
+              <i style={{ color: "white" }} onClick={togglePasswordVisiblity}>
+                {eye}
+              </i>
+              Show password
+            </h6>
           </div>
           <input type="submit" className="btn btn-primary" />
         </form>
