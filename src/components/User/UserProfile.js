@@ -10,6 +10,8 @@ import { Redirect } from "react-router";
 export default function UserProfile() {
   const { register, handleSubmit } = useForm();
 
+  const token = window.sessionStorage.getItem("token");
+
   const userName = window.sessionStorage.getItem("User");
   console.log(userName);
 
@@ -22,7 +24,11 @@ export default function UserProfile() {
   useEffect(() => {
     async function getData() {
       const response = await axios.get(
-        `http://localhost:8080/yellowrestaurant/api/v1/user/view/${userName}`
+        `http://localhost:8080/yellowrestaurant/api/v1/user/view/${userName}`,
+
+        { 
+          headers: {"Authorization" : `Bearer ${token}`}
+        }
       );
       setUser(response.data);
       console.log(response.data);
@@ -38,6 +44,7 @@ export default function UserProfile() {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          "Authorization" : `Bearer ${token}`
         },
         body: JSON.stringify(data),
       }
@@ -51,14 +58,23 @@ export default function UserProfile() {
   const handleDelete = () => {
     fetch(`http://localhost:8080/yellowrestaurant/api/v1/user/`, {
       method: "DELETE",
-      headers: { "Content-Type": "application/json" },
+
+//       headers: { "Content-Type": "application/json" },
+//     }).then((response) => {
+//       if (response.status === 200) {
+//         handleShow();
+//         history.push("/logout");
+//       }
+//     });
+
+      headers: { "Content-Type": "application/json",
+      "Authorization" : `Bearer ${token}` },
     }).then((response) => {
-      if (response.status === 200) {
-        handleShow();
-        history.push("/logout");
-      }
+    if (response.status === 200) {
+         handleShow();
+         history.push("/logout");
+    }
     });
-  };
 
   const handleClose = () => {
     setShow(false);
