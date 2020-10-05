@@ -20,6 +20,7 @@ export default function UserLogin() {
     promiseA.then(function (result) {
       if (result.username) {
         window.sessionStorage.setItem("User", result.username);
+        window.sessionStorage.setItem("token", result.token);
         setUserLogin(true);
         history.push("/");
       } else {
