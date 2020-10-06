@@ -58,9 +58,6 @@ function SurpriseMeal() {
               display="initial"
               position="relative"
             />
-            // <a href={surpriseMeal.strYoutube} className="card-link">
-            //   Youtube
-            // </a>
           )}
         </div>
       </div>
