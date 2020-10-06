@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import Iframe from "react-iframe";
 import axios from "axios";
 
 function SurpriseMeal() {
@@ -14,7 +15,12 @@ function SurpriseMeal() {
     getData();
   }, []);
 
-  console.log(surpriseMeal);
+  const getYoutubeUrl = (url) => {
+    const embedUrl = url.replace("watch?v=", "embed/");
+    return embedUrl;
+  };
+
+  console.log(surpriseMeal.strYoutube);
   return (
     <div className="container" style={{ width: "38rem", marginTop: "50px" }}>
       <div className="card">
@@ -43,9 +49,18 @@ function SurpriseMeal() {
         </ul>
         <div className="card-body">
           {surpriseMeal.strYoutube && (
-            <a href={surpriseMeal.strYoutube} className="card-link">
-              Youtube
-            </a>
+            <Iframe
+              url={getYoutubeUrl(surpriseMeal.strYoutube)}
+              width="450px"
+              height="450px"
+              id="myId"
+              className="myClassname"
+              display="initial"
+              position="relative"
+            />
+            // <a href={surpriseMeal.strYoutube} className="card-link">
+            //   Youtube
+            // </a>
           )}
         </div>
       </div>
