@@ -2,12 +2,14 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Table } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import { useForm } from "react-hook-form";
 
 import "../MealBrowsing/FoodCategories.css";
 
 function OrderDetails({ name }) {
   const [user, setUser] = useState([]);
   const [listOfMeals, setListOfMeals] = useState([]);
+  const { handleSubmit } = useForm();
   const userName = window.sessionStorage.getItem("User");
   const token = window.sessionStorage.getItem("token");
 
@@ -16,33 +18,31 @@ function OrderDetails({ name }) {
       const cartResponse = await axios.get(
         `http://localhost:8080/yellowrestaurant/api/v1/cart/mealsInCart/${name}`,
         {
-          headers: { "Authorization" : `Bearer ${token}` }
+          headers: { Authorization: `Bearer ${token}` },
         }
       );
-      console.log(cartResponse.data);
+      // console.log(cartResponse.data);
       setListOfMeals(cartResponse.data);
     }
     getData();
-  }, [name]);
+  }, [name, token]);
 
   useEffect(() => {
     async function getData() {
       const response = await axios.get(
         `http://localhost:8080/yellowrestaurant/api/v1/user/view/${userName}`,
         {
-          headers: { "Authorization" : `Bearer ${token}` }
+          headers: { Authorization: `Bearer ${token}` },
         }
       );
+      // console.log(response.data);
       setUser(response.data);
-      console.log(response.data);
     }
     getData();
-
-  }, [userName]);
-
+  }, [token, userName]);
 
   const getListOfMeals = (mapWithMeals) => {
-    console.log(mapWithMeals);
+    // console.log(mapWithMeals);
     let content = [];
     let meal = {};
     for (let [mealJSON, quantity] of Object.entries(mapWithMeals)) {
@@ -69,6 +69,13 @@ function OrderDetails({ name }) {
     return sum;
   };
 
+  const onSubmit = () => {
+    const paymentRequest = {
+      totalAmount: `${getTotalPrice(listOfMeals)}`,
+      description: `OrderId${user.firstName}`,
+    };
+    doPayment(paymentRequest);
+  };
 
   return (
     <div
@@ -123,12 +130,27 @@ function OrderDetails({ name }) {
           </tr>
         </tbody>
       </Table>
-
-      <a href="#" className="btn btn-primary">
-        PayPal
-      </a>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <button className="btn btn-primary" type="submit">
+          Proceeded with the payment
+        </button>
+      </form>
     </div>
   );
 }
 
 export default OrderDetails;
+
+async function doPayment(params) {
+  axios
+    .post("http://localhost:8081/api/v1/payment", params)
+    .then((response) => {
+      if (response.status === 200) {
+        // console.log(response);
+        window.location.href =response.data;
+      }
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+}

@@ -24,27 +24,27 @@ export default function UserProfile() {
   useEffect(() => {
     async function getData() {
       const response = await axios.get(
-        `http://localhost:8080/yellowrestaurant/api/v1/user/view/${userName}`,
+        `http://localhost:8989/yellowrestaurant/api/v1/user/view/${userName}`,
 
-        { 
-          headers: {"Authorization" : `Bearer ${token}`}
+        {
+          headers: { Authorization: `Bearer ${token}` },
         }
       );
       setUser(response.data);
       console.log(response.data);
     }
     getData();
-  }, [userName]);
+  }, [token, userName]);
 
   const onSubmit = (data) => {
     console.log(data);
     fetch(
-      `http://localhost:8080/yellowrestaurant/api/v1/user/${userName}/edit`,
+      `http://localhost:8989/yellowrestaurant/api/v1/user/${userName}/edit`,
       {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "Authorization" : `Bearer ${token}`
+          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify(data),
       }
@@ -56,25 +56,28 @@ export default function UserProfile() {
   };
 
   const handleDelete = () => {
-    fetch(`http://localhost:8080/yellowrestaurant/api/v1/user/`, {
+    fetch(`http://localhost:8989/yellowrestaurant/api/v1/user/`, {
       method: "DELETE",
 
-//       headers: { "Content-Type": "application/json" },
-//     }).then((response) => {
-//       if (response.status === 200) {
-//         handleShow();
-//         history.push("/logout");
-//       }
-//     });
+      //       headers: { "Content-Type": "application/json" },
+      //     }).then((response) => {
+      //       if (response.status === 200) {
+      //         handleShow();
+      //         history.push("/logout");
+      //       }
+      //     });
 
-      headers: { "Content-Type": "application/json",
-      "Authorization" : `Bearer ${token}` },
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
     }).then((response) => {
-    if (response.status === 200) {
-         handleShow();
-         history.push("/logout");
-    }
+      if (response.status === 200) {
+        handleShow();
+        history.push("/logout");
+      }
     });
+  };
 
   const handleClose = () => {
     setShow(false);
