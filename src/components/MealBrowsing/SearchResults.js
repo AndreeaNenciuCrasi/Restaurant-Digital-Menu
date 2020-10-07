@@ -37,7 +37,7 @@ function SearchResults({ name }) {
                 onClick={() => handleClick(item)}
                 className="btn btn-primary"
               >
-                Order
+                🛒
               </a>
             </div>
           </div>
