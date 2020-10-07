@@ -31,7 +31,7 @@ export default function UserLogin() {
         window.sessionStorage.setItem("User", result.username);
         window.sessionStorage.setItem("token", result.token);
         setUserLogin(true);
-        history.push("/");
+        history.push("/categories");
       } else {
         setModalMessage("Username or Password is incorrect");
         handleShow();

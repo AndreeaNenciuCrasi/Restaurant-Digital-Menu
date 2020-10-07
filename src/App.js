@@ -19,6 +19,8 @@ import UserProfile from "./components/User/UserProfile";
 import ShoppingCart from "./components/ShoppingCart/ShoppingCart";
 import FavoriteMeals from "./components/FavoriteMeal/FavoriteMeals";
 import OrderDetails from "./components/OrderDetails/OrderDetails";
+import PaymentSuccess from "./components/Payment/PaymentSuccess";
+import PaymentCancel from "./components/Payment/PaymentCancel";
 
 function App() {
   return (
@@ -60,6 +62,16 @@ function App() {
                 exact
                 component={FavoriteMeals}
               />
+              <Route
+                path="/payment/success"
+                exact
+                component={PaymentSuccess}
+              ></Route>
+              <Route
+                path="/payment/cancel"
+                exact
+                component={PaymentCancel}
+              ></Route>
               <Redirect to="/" />
             </Switch>
           </div>
