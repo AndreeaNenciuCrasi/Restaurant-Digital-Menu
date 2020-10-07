@@ -132,7 +132,7 @@ function OrderDetails({ name }) {
       </Table>
       <form onSubmit={handleSubmit(onSubmit)}>
         <button className="btn btn-primary" type="submit">
-          Proceeded with the payment
+          Proceeded with Paypal payment
         </button>
       </form>
     </div>
@@ -147,7 +147,7 @@ async function doPayment(params) {
     .then((response) => {
       if (response.status === 200) {
         // console.log(response);
-        window.location.href =response.data;
+        window.location.href = response.data;
       }
     })
     .catch((error) => {
