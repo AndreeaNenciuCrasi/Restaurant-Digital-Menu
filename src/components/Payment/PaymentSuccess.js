@@ -1,7 +1,5 @@
 import axios from "axios";
-import { param } from "jquery";
 import React, { useEffect } from "react";
-import { useParams } from "react-router-dom";
 
 function PaymentStatus() {
   const userName = window.sessionStorage.getItem("User");

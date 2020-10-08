@@ -7,9 +7,7 @@ import "./FoodCategories.css";
 
 function MealListByCategory({ name }) {
   const [foodListCategories, setFoodListCategories] = useState([]);
-  const [show, setShow] = useState(false);
   const [favoriteMeals, setFavoriteMeals] = useState([]);
-  const [message, setMessage] = useState();
 
   const username = window.sessionStorage.getItem("User");
   const token = window.sessionStorage.getItem("token");
@@ -21,27 +19,29 @@ function MealListByCategory({ name }) {
       );
       setFoodListCategories(response.data.meals);
     }
-
     getData();
   }, [name]);
 
-  const handleClose = () => {
-    setShow(false);
-  };
+  useEffect(() => {
+    async function getDataFavorites() {
+      const responseFavorites = await axios.get(
+        `http://localhost:8080/yellowrestaurant/api/v1/user/${username}/favorites`,
+        {
+          headers: { "Authorization" : `Bearer ${token}` }
+        }
+      );
+      setFavoriteMeals(responseFavorites.data);   
+    }
+    getDataFavorites();
+  }, []);
 
-  async function getData() {
-    const responseFavorites = await axios.get(
-      `http://localhost:8080/yellowrestaurant/api/v1/user/${username}/favorites`,
-      {
-        headers: { "Authorization" : `Bearer ${token}` }
-      }
-    );
-    setFavoriteMeals(responseFavorites.data);
+  const listIds = []
+  for (let favoriteMeal of favoriteMeals) {
+    listIds.push(favoriteMeal.idMeal);
   }
+  console.log(listIds);
 
   const faveClick = (newFavoriteMeal) => {
-    getData();
-
     let alreadyFave = false;
     for (let item of favoriteMeals) {
       if (item.idMeal === newFavoriteMeal.idMeal) {
@@ -50,8 +50,6 @@ function MealListByCategory({ name }) {
     }
 
     if (alreadyFave == false) {
-      setMessage("Meal added to favorites :)");
-      setShow(true);
       fetch(
         `http://localhost:8080/yellowrestaurant/api/v1/user/${username}/favorites/${newFavoriteMeal.idMeal}`,
         {
@@ -65,10 +63,18 @@ function MealListByCategory({ name }) {
         console.log(response);
       });
     } else {
-      // alert("Meal already in favorites!");
-      setMessage("Meal already in favorites!");
-      setShow(true);
+      fetch(
+        `http://localhost:8080/yellowrestaurant/api/v1/user/${username}/favorites/delete/${newFavoriteMeal.idMeal}`,
+        {
+          method: "DELETE",
+          headers: { 
+            "Content-Type": "application/json",
+            "Authorization" : `Bearer ${token}` 
+          }
+        }
+      )
     }
+    window.location.reload();
   };
 
   return (
@@ -87,12 +93,12 @@ function MealListByCategory({ name }) {
           <div className="card-body">
             <h5 className="card-title">{item.strMeal.substring(0, 20)}</h5>
             <button
-              style={{ borderStyle: "none", backgroundColor: "cyan" }}
+              style={{ borderStyle: "none", backgroundColor: "white" }}
               type="button"
               onClick={() => faveClick(item)}
             >
               <h5>
-                <FaHeart style={{ color: "white" }} />
+                { listIds.includes(item.idMeal) ? <FaHeart style={{ color: "red" }} /> : <FaHeart style={{ color: "blue" }} /> }
               </h5>
             </button>{" "}
             <Link to={`/food-details/${item.idMeal}`}>
@@ -110,21 +116,11 @@ function MealListByCategory({ name }) {
           </div>
         </div>
       ))}
-      <>
-        <Modal show={show} onHide={handleClose}>
-          <Modal.Header closeButton onClick={handleClose}>
-            <Modal.Title>Good choice!</Modal.Title>
-          </Modal.Header>
-          {/* <Modal.Body>Meal added to favorites :)</Modal.Body> */}
-          <Modal.Body>{message}</Modal.Body>
-        </Modal>
-      </>
     </div>
   );
 }
 
 function handleClick(mealToAddToCart) {
-  // alert("Meal added to your shopping cart!");
   const username = window.sessionStorage.getItem("User");
   const token = window.sessionStorage.getItem("token");
   const image = mealToAddToCart.strMealThumb.replace(
