@@ -24,7 +24,7 @@ export default function UserProfile() {
   useEffect(() => {
     async function getData() {
       const response = await axios.get(
-        `http://localhost:8989/yellowrestaurant/api/v1/user/view/${userName}`,
+        `http://localhost:8080/yellowrestaurant/api/v1/user/view/${userName}`,
 
         {
           headers: { Authorization: `Bearer ${token}` },
@@ -39,7 +39,7 @@ export default function UserProfile() {
   const onSubmit = (data) => {
     console.log(data);
     fetch(
-      `http://localhost:8989/yellowrestaurant/api/v1/user/${userName}/edit`,
+      `http://localhost:8080/yellowrestaurant/api/v1/user/${userName}/edit`,
       {
         method: "POST",
         headers: {
@@ -56,7 +56,7 @@ export default function UserProfile() {
   };
 
   const handleDelete = () => {
-    fetch(`http://localhost:8989/yellowrestaurant/api/v1/user/`, {
+    fetch(`http://localhost:8080/yellowrestaurant/api/v1/user/`, {
       method: "DELETE",
 
       //       headers: { "Content-Type": "application/json" },

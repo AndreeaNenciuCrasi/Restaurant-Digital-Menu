@@ -73,6 +73,7 @@ function OrderDetails({ name }) {
     const paymentRequest = {
       totalAmount: `${getTotalPrice(listOfMeals)}`,
       description: `OrderId${user.firstName}`,
+      linkPaypal: null,
     };
     doPayment(paymentRequest);
   };
@@ -143,7 +144,7 @@ export default OrderDetails;
 
 async function doPayment(params) {
   axios
-    .post("http://localhost:8081/api/v1/payment", params)
+    .post("http://localhost:8080/payment/request-payment", params)
     .then((response) => {
       if (response.status === 200) {
         // console.log(response);
