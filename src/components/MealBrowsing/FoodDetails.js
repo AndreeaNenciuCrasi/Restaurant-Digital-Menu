@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Modal, Button } from "react-bootstrap";
+import Iframe from "react-iframe";
 
 function FoodDetails({ id }) {
   const [foodDetails, setFoodDetails] = useState([]);
@@ -18,6 +19,11 @@ function FoodDetails({ id }) {
     }
     getData();
   }, [id]);
+
+  const getYoutubeUrl = (url) => {
+    const embedUrl = url.replace("watch?v=", "embed/");
+    return embedUrl;
+  };
 
   return (
     <div className="container" style={{ width: "32rem", marginTop: "50px" }}>
@@ -52,13 +58,6 @@ function FoodDetails({ id }) {
             </li>
           )}
         </ul>
-        <div className="card-body">
-          {foodDetails.strYoutube && (
-            <a href={foodDetails.strYoutube} className="card-link">
-              Youtube
-            </a>
-          )}
-        </div>
         <>
           <Button variant="link" onClick={handleShow}>
             Recipe
@@ -75,6 +74,19 @@ function FoodDetails({ id }) {
             </Modal.Footer>
           </Modal>
         </>
+        <div className="card-body">
+          {foodDetails.strYoutube && (
+            <Iframe
+              url={getYoutubeUrl(foodDetails.strYoutube)}
+              width="450px"
+              height="450px"
+              id="myId"
+              className="myClassname"
+              display="initial"
+              position="relative"
+            />
+          )}
+        </div>
       </div>
     </div>
   );

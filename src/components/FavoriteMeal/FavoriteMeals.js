@@ -3,14 +3,17 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 
 export default function FavoriteMeals() {
-
   const username = window.sessionStorage.getItem("User");
   const [favoriteMeals, setFavoriteMeals] = useState([]);
+  const token = window.sessionStorage.getItem("token");
 
   useEffect(() => {
     async function getData() {
       const response = await axios.get(
-        `http://localhost:8080/yellowrestaurant/api/v1/user/${username}/favorites`
+        `http://localhost:8080/yellowrestaurant/api/v1/user/${username}/favorites`,
+        {
+          headers: { "Authorization" : `Bearer ${token}` }
+        }
       );
       setFavoriteMeals(response.data);
       console.log(response.data);
@@ -19,9 +22,14 @@ export default function FavoriteMeals() {
   }, []);
 
   return (
-    <div style={{marginBottom : "25rem"}}className="container FoodCategoriesContainer">
-      <div style={{ "color": "white" }}><h3>Favorite meals</h3></div>
-      {favoriteMeals.map((item,i) => (
+    <div
+      style={{ marginBottom: "25rem" }}
+      className="container FoodCategoriesContainer"
+    >
+      <div style={{ color: "white" }}>
+        <h3>Favorite meals</h3>
+      </div>
+      {favoriteMeals.map((item, i) => (
         <div
           key={i}
           className="card FoodCategoriesCard"
@@ -33,15 +41,19 @@ export default function FavoriteMeals() {
             alt="Card image cap"
           />
           <div className="card-body">
-            <h5 className="card-title">{item.name.substring(0,20)}</h5>
+            <h5 className="card-title">{item.name.substring(0, 20)}</h5>
             <Link to={`/food-details/${item.idMeal}`}>
               <button type="button" value="submit" className="btn btn-info">
                 Info
               </button>{" "}
             </Link>
-            <a href="#" onClick={() => handleClick(item)} className="btn btn-primary">
-              Order
-              </a>
+            <a
+              href="#"
+              onClick={() => handleClick(item)}
+              className="btn btn-primary"
+            >
+              🛒
+            </a>
           </div>
         </div>
       ))}
@@ -51,6 +63,7 @@ export default function FavoriteMeals() {
 
 function handleClick(mealToAddToCart) {
   const username = window.sessionStorage.getItem("User");
+  const token = window.sessionStorage.getItem("token");
   const image = mealToAddToCart.image.replace(
     "https://www.themealdb.com/images/media/meals/",
     ""
@@ -61,6 +74,7 @@ function handleClick(mealToAddToCart) {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        "Authorization" : `Bearer ${token}` 
       },
       body: JSON.stringify(mealToAddToCart),
     }
@@ -68,4 +82,3 @@ function handleClick(mealToAddToCart) {
     console.log(response);
   });
 }
-

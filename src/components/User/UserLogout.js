@@ -8,11 +8,11 @@ function UserLogout() {
   let logoutResponse = handleLogout();
   console.log(logoutResponse);
   window.sessionStorage.clear();
-  history.push("/login");
+  history.push("/surprise-meal");
 
   return (
     <div>
-      <h1>Log out Page</h1>
+      <h1>Logout Page</h1>
     </div>
   );
 }

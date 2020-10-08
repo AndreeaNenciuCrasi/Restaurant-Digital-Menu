@@ -37,7 +37,7 @@ function SearchResults({ name }) {
                 onClick={() => handleClick(item)}
                 className="btn btn-primary"
               >
-                Order
+                🛒
               </a>
             </div>
           </div>
@@ -52,6 +52,7 @@ function SearchResults({ name }) {
 function handleClick(mealToAddToCart) {
   // alert("Meal added to your shopping cart!");
   const username = window.sessionStorage.getItem("User");
+  const token = window.sessionStorage.getItem("token");
   const image = mealToAddToCart.strMealThumb.replace(
     "https://www.themealdb.com/images/media/meals/",
     ""
@@ -62,6 +63,7 @@ function handleClick(mealToAddToCart) {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
       },
       body: JSON.stringify(mealToAddToCart),
     }
