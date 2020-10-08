@@ -41,14 +41,12 @@ function ShoppingCart() {
       meal = JSON.parse(mealJSON);
       content.push(
         <div className="card FoodCategoriesCard">
-          <Card style={{ width: "18rem" }}>
-            <Card.Img className="cardImg" variant="top" src={meal.image} />
+            <Card.Img className="card-img-top cardImg" variant="top" src={meal.image} />
             <Card.Body>
               <Card.Title>{meal.name}</Card.Title>
               <Card.Text>{quantity}</Card.Text>
               <Card.Text>{meal.price * quantity}$</Card.Text>
             </Card.Body>
-          </Card>
         </div>
       );
     }
