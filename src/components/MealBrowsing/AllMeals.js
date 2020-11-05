@@ -11,7 +11,6 @@ function AllMeals() {
         "https://www.themealdb.com/api/json/v1/1/search.php?f=b"
       );
       setAllMeals(response.data.meals);
-      console.log(response.data.meals);
     }
     getData();
   }, []);

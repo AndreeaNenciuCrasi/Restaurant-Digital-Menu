@@ -21,6 +21,7 @@ import FavoriteMeals from "./components/FavoriteMeal/FavoriteMeals";
 import OrderDetails from "./components/OrderDetails/OrderDetails";
 import PaymentSuccess from "./components/Payment/PaymentSuccess";
 import PaymentCancel from "./components/Payment/PaymentCancel";
+import GenericErrorPage from "./components/ErrorPage/GenericErrorPage";
 
 function App() {
   return (
@@ -72,7 +73,8 @@ function App() {
                 exact
                 component={PaymentCancel}
               ></Route>
-              <Redirect to="/" />
+              <Route path="/error" exact component={GenericErrorPage}></Route>
+              <Route component={GenericErrorPage} />
             </Switch>
           </div>
           <Footer />
